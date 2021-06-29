@@ -103,38 +103,6 @@ class _RequestStatusSheetState extends State<RequestStatusSheet> {
     );
   }
 
-  // Widget buildFooter(BuildContext context, SheetState state) {
-  //
-  //
-  //
-  //   return Container(
-  //     // shadowDirection: ShadowDirection.top,
-  //     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  //     color: Colors.white,
-  //     // color: resources.primaryColor.withAlpha(100),
-  //     // shadowColor: Colors.black12,
-  //     child: Row(
-  //       children: <Widget>[
-  //         SheetListenerBuilder(
-  //           buildWhen: (oldState, newState) => newState.progress < 0.25 || newState.progress > 0.75,
-  //           // buildWhen: (oldState, newState) => newState.progress < 0.25 || newState.progress < 0.75,
-  //           builder: (context, state) {
-  //             final isExpanded = state.isExpanded;
-  //
-  //             return CustomRoundedButton(
-  //               child: Text(isExpanded ? "Cancel Request" : "Request Ride", style: TextStyle(color: Colors.white),),
-  //               color: isExpanded ? Colors.red : resources.secondaryColor,
-  //               onPressed: !isExpanded
-  //                   ? () => controller.scrollTo(state.maxScrollExtent)
-  //                   : controller.collapse,
-  //             );
-  //
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget buildChild(BuildContext context, SheetState state) {
     Size size = MediaQuery.of(context).size;

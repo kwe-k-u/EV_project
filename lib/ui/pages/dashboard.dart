@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ev_project/ui/pages/SettingsPage.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
@@ -57,7 +59,10 @@ class _DashboardState extends State<Dashboard> {
         //     return _sheetBody(size);
         //   },
         // ),
-        child: RequestSheet(body:_buildBody(MediaQuery.of(context).size,), requestMade: false,),
+        child: RequestSheet(
+          body:_buildBody(MediaQuery.of(context).size,),
+          requestMade: Random().nextBool(),
+        ),
       ),
     );
   }
