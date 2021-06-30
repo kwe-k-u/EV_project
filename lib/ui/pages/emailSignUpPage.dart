@@ -82,8 +82,9 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
           Spacer(flex: 1,),
 
           CustomDropDown(
+            label: "Institution",
             width: size.width * 0.8,
-            height: size.height * 0.08,
+            height: size.height * 0.13,
             onChanged: (value){
 
             },
@@ -98,7 +99,7 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
           Spacer(flex: 2,),
 
           CustomRoundedButton(
-              child: Text("Create Account"),
+              child: Text("Create Account", style: TextStyle(color:Colors.white)),
               color: resources.secondaryColor,
               onPressed: (){
                 Navigator.push(context,

@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class CustomDropDown extends StatefulWidget {
   final List<String> items;
   final double? width;
+  final String? label;
   final double? height;
   final void Function(dynamic)? onChanged;
 
   const CustomDropDown({
     Key? key,
+    this.label,
     required this.items,
     this.onChanged,
     this.width,
@@ -29,14 +31,23 @@ class _CustomDropDownState extends State<CustomDropDown> {
     return Container(
       width: widget.width,
       height: widget.height,
-      child: AwesomeDropDown(
-          dropDownIcon: Icon(Icons.arrow_drop_down, color: resources.primaryColor,),
-          dropDownListTextStyle: TextStyle(color: Colors.black),
+      child: Column(
+        children: [
+          widget.label != null ?
+          Text(widget.label!)
+              :Container(width: 0, height: 0,),
 
-          onDropDownItemClick: (s){
 
-          },
-          dropDownList: widget.items),
+          AwesomeDropDown(
+              dropDownIcon: Icon(Icons.arrow_drop_down, color: resources.primaryColor,),
+              dropDownListTextStyle: TextStyle(color: Colors.black),
+
+              onDropDownItemClick: (s){
+
+              },
+              dropDownList: widget.items),
+        ],
+      ),
     );
   }
 }
