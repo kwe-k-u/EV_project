@@ -20,12 +20,12 @@ class _TripHistoryPageState extends State<TripHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,

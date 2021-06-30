@@ -50,12 +50,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: IntroductionScreen(
         key: introKey,
         globalBackgroundColor: Colors.white,

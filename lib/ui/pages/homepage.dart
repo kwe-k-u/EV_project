@@ -16,12 +16,12 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

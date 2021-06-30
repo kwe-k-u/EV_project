@@ -25,13 +25,13 @@ class _DashboardState extends State<Dashboard> {
         .size;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        heroTag: "",
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: "",
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         padding: EdgeInsets.only(top: size.height * 0.05),
         // child: SlidingSheet(

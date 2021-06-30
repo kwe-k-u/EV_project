@@ -25,12 +25,12 @@ class _AddPaymentMethodPageState extends State<AddPaymentMethodPage> {
 
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         padding: EdgeInsets.only(
           top:12.0

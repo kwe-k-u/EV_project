@@ -25,12 +25,12 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
 
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         width: size.width,
         height: size.height,

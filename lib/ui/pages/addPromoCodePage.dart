@@ -13,6 +13,13 @@ class AddPromoCodePagePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: "",
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         child: Column(
           children: [

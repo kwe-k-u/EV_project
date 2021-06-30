@@ -19,13 +19,13 @@ class SettingsPage extends StatelessWidget {
 
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        heroTag: "feedback",
-        child: Icon(Icons.app_settings_alt_outlined),
-        onPressed: (){
-          resources.sendFeedback(context);
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: "feedback",
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
       body: Container(
         padding: EdgeInsets.only(top: 8.0),
         child: Column(
