@@ -1,3 +1,4 @@
+import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/ui/pages/emailSignUpPage.dart';
 import 'package:ev_project/ui/pages/onBoardingPage.dart';
 import 'package:ev_project/ui/widgets/TextButtonRow.dart';
@@ -76,9 +77,15 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             CustomRoundedButton(
               child: Text("Create Account", style: TextStyle(color: Colors.white),),
               color: resources.secondaryColor,
-              onPressed: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> OnBoardingPage()));
+              onPressed: () async{
+                if (await resources.showIntroPage() )
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => OnBoardingPage()
+                  ));
+                else
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => Dashboard()
+                  ));
               },
             ),
 

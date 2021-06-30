@@ -7,6 +7,7 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -18,6 +19,7 @@ class AppResources{
   AppResources();
 
 
+  ///Draws the line animation for button splash
   Path createSamplePath() {
     final Path p = Path();
     p.moveTo(1, 71.2809197);
@@ -72,6 +74,7 @@ class AppResources{
 
 
 
+  ///Sends an email of a user's feedback to the developer email
   Future<bool> sendFeedback(BuildContext context) async{
 
 
@@ -102,9 +105,25 @@ class AppResources{
   }
 
 
+  ///Adds another page to the navigator stack
   AppResources.openPage(BuildContext context, Widget page){
     Navigator.push(context, MaterialPageRoute(builder: (context)=> page));
   }
+
+  Future<bool> showIntroPage() async{
+    bool show;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    show =  preferences.getBool("showIntroPage") ?? true;
+
+    //ensuring that intro page is shown just once
+    if (show)
+      preferences.setBool("showIntroPage", false);
+    return show;
+  }
+
+
+
+
 
 
 }
