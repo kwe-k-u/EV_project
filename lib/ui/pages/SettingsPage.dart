@@ -77,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                         child: Icon(Icons.edit, size: 20,color: Colors.white,),
 
                         onPressed: () {
-                          AppResources.openPage(context, EditProfilePage());
+                          AppResources.openPageWithAnimation(context, EditProfilePage());
                         },
                       ),
 

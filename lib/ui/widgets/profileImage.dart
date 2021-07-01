@@ -1,3 +1,4 @@
+import 'package:ev_project/ui/widgets/loaderIcon.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,6 +19,21 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     return ClipRRect(
         borderRadius: BorderRadius.circular(60),
         child: Image.network("https://picsum.photos/200",
+          // loadingBuilder: (context, widget, chunk){
+          // if (chunk == null) return widget;
+          // return LoaderIcon(
+          //   dotRadius: 6.0,
+          //   radius: 12,
+          // );
+          // },
+          errorBuilder: (context,object, stacktrace){
+            return Column(
+            children: [
+              Icon(Icons.error_outline),
+              Text("Could not load image")
+            ],
+          );
+          },
           fit: BoxFit.fill,
           width: widget.width,
           height: widget.height,
