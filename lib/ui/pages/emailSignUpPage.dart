@@ -7,6 +7,8 @@ import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -20,6 +22,10 @@ class EmailSignUpPage extends StatefulWidget {
 
 class _EmailSignUpPageState extends State<EmailSignUpPage> {
   final AppResources resources = AppResources();
+  TextEditingController email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+  TextEditingController confirmPassword = new TextEditingController();
+  String institution = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,99 +39,113 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
       //     resources.sendFeedback(context);
       //   },
       // ),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          width: size.width,
+          height: size.height,
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
 
 
 
-          Spacer(flex: 9,),
+            Spacer(flex: 9,),
 
-          CircleAvatar(
-            // foregroundColor: resources.primaryColor,
-            minRadius: 30,
+            CircleAvatar(
+              // foregroundColor: resources.primaryColor,
+              minRadius: 30,
 
-            child: Icon(Ionicons.logo_github, size: 50,),
-          ),
+              child: Icon(Ionicons.logo_github, size: 50,),
+            ),
 
-          Spacer(flex: 1,),
-          CustomTextField(
-            width: size.width * 0.8,
-            height: size.height * 0.08,
-            hintText: "Email",
-            keyboardType: TextInputType.emailAddress,
-            icon: Icons.email,
-
-          ),
-
-
-          Spacer(flex: 1,),
-          CustomTextField(
-            width: size.width * 0.8,
-            height: size.height * 0.08,
-            hintText: "Password",
-            obscureText: true,
-            icon: Icons.lock_outline
-          ),
-
-          Spacer(flex: 1,),
-          CustomTextField(
+            Spacer(flex: 1,),
+            CustomTextField(
+              controller: email,
               width: size.width * 0.8,
               height: size.height * 0.08,
-              hintText: "Confirm Password",
+              hintText: "Email",
+              keyboardType: TextInputType.emailAddress,
+              icon: Icons.email,
+
+            ),
+
+
+            Spacer(flex: 1,),
+            CustomTextField(
+              controller: password,
+              width: size.width * 0.8,
+              height: size.height * 0.08,
+              hintText: "Password",
+              obscureText: true,
               icon: Icons.lock_outline
-          ),
+            ),
 
-          Spacer(flex: 1,),
+            Spacer(flex: 1,),
+            CustomTextField(
+              controller: confirmPassword,
+              obscureText: true,
+                width: size.width * 0.8,
+                height: size.height * 0.08,
+                hintText: "Confirm Password",
+                icon: Icons.lock_outline
+            ),
 
-          CustomDropDown(
-            label: "Institution",
-            width: size.width * 0.8,
-            height: size.height * 0.13,
-            onChanged: (value){
+            Spacer(flex: 1,),
 
-            },
-            items: [
-              "Please Select",
-              "Ashesi University",
-              "",
-              ""
-            ],
-          ),
-
-          Spacer(flex: 2,),
-
-          CustomRoundedButton(
-              child: Text("Create Account", style: TextStyle(color:Colors.white)),
-              color: resources.secondaryColor,
-              onPressed: () async{
-                if (await resources.showIntroPage() )
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => OnBoardingPage()
-                  ));
-                else
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => Dashboard()
-                  ));
+            CustomDropDown(
+              label: "Institution",
+              width: size.width * 0.8,
+              height: size.height * 0.13,
+              onChanged: (value){
+                institution = value;//todo repalce with controller?
               },
-          ),
+              items: [
+                "Please Select",
+                "Ashesi University",
+                "",
+                ""
+              ],
+            ),
 
-          TextButtonRow(
-            text: "Already have an account?",
-            buttonText: "Sign In",
-            onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                  builder: (context)=> EmailSignInPage())
-              );
-            }
-          ),
-          Spacer(flex: 9,),
-        ],
-      ),
+            Spacer(flex: 2,),
+
+            CustomRoundedButton(
+                child: Text("Create Account", style: TextStyle(color:Colors.white)),
+                color: resources.secondaryColor,
+                onPressed: () async{
+
+                  User? user = await signUpWithEmail(email.text, password.text, institution);
+                  if (user == null)
+                    print("No user");
+                  else
+                    print("user info ${user.toString()}");
+
+                  // if (await resources.showIntroPage() )
+                  //   Navigator.pushReplacement(context, MaterialPageRoute(
+                  //       builder: (context) => OnBoardingPage()
+                  //   ));
+                  // else
+                  //   Navigator.pushReplacement(context, MaterialPageRoute(
+                  //       builder: (context) => Dashboard()
+                  //   ));
+                },
+            ),
+
+            TextButtonRow(
+              text: "Already have an account?",
+              buttonText: "Sign In",
+              onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context)=> EmailSignInPage())
+                );
+              }
+            ),
+            Spacer(flex: 9,),
+          ],
+        ),
+        ),
       ),
     );
   }

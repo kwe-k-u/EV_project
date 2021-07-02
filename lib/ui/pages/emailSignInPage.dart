@@ -1,3 +1,4 @@
+
 import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/ui/pages/emailSignUpPage.dart';
 import 'package:ev_project/ui/pages/onBoardingPage.dart';
@@ -5,6 +6,8 @@ import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -19,6 +22,8 @@ class EmailSignInPage extends StatefulWidget {
 class _EmailSignInPageState extends State<EmailSignInPage> {
 
   final AppResources resources = AppResources();
+  TextEditingController email = new TextEditingController();
+  TextEditingController password = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,7 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             CustomTextField(
               width: size.width * 0.8,
               height: size.height * 0.08,
+              controller: email,
               hintText: "Email",
               keyboardType: TextInputType.emailAddress,
               icon: Icons.email_outlined
@@ -66,6 +72,7 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             CustomTextField(
               width: size.width * 0.8,
               height: size.height * 0.08,
+              controller: password,
               hintText: "Password",
                 keyboardType: TextInputType.text,
               obscureText: true,
@@ -75,17 +82,23 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
             Spacer(flex: 1,),
 
             CustomRoundedButton(
-              child: Text("Create Account", style: TextStyle(color: Colors.white),),
+              child: Text("Log In", style: TextStyle(color: Colors.white),),
               color: resources.secondaryColor,
               onPressed: () async{
-                if (await resources.showIntroPage() )
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => OnBoardingPage()
-                  ));
+
+                User? user = await logInWithEmail(email.text, password.text);
+                if (user == null)
+                  print("No user");
                 else
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => Dashboard()
-                  ));
+                  print("user info ${user.toString()}");
+                // if (await resources.showIntroPage() )
+                //   Navigator.pushReplacement(context, MaterialPageRoute(
+                //       builder: (context) => OnBoardingPage()
+                //   ));
+                // else
+                //   Navigator.pushReplacement(context, MaterialPageRoute(
+                //       builder: (context) => Dashboard()
+                //   ));
               },
             ),
 

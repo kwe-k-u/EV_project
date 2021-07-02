@@ -3,6 +3,8 @@ import 'package:ev_project/ui/pages/emailSignUpPage.dart';
 import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -62,7 +64,13 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
                 color: resources.secondaryColor,
-                onPressed: (){}
+                onPressed: ()async{
+                  User? user = await signInWithGoogle();
+                  if (user == null)
+                    print("No user");
+                  else
+                    print("user info ${user.toString()}");
+                }
             ),
 
             Spacer(flex: 1,),
