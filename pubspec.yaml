@@ -49,7 +49,7 @@ dependencies:
   google_directions_api: ^0.9.0
   google_sign_in: ^5.0.4
   provider: ^5.0.0
-
+  animations: ^2.0.0
 
 
 dev_dependencies:

@@ -1,5 +1,6 @@
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
+import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -76,13 +77,9 @@ class _RequestStatusSheetState extends State<RequestStatusSheet> {
   Widget buildHeader(BuildContext context, SheetState state) {
     return Container(
       child: ListTile(
-        leading: ClipRRect(
-            borderRadius: BorderRadius.circular(60),
-            child: Image.network("https://picsum.photos/200",
-              fit: BoxFit.fill,
-              width: MediaQuery.of(context).size.width * 0.12,
-              height: MediaQuery.of(context).size.width * 0.12,
-            )
+        leading: ProfileImageWidget(
+          width: MediaQuery.of(context).size.width * 0.12,
+          height: MediaQuery.of(context).size.width * 0.12,
         ),
         title: Text("Your ride is arriving"),
         subtitle: Text("10 minutes away"),

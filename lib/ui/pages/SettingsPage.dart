@@ -4,6 +4,7 @@ import 'package:ev_project/ui/pages/homepage.dart';
 import 'package:ev_project/ui/pages/paymentMethods.dart';
 import 'package:ev_project/ui/pages/tripHistoryPage.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
+import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:flutter/material.dart';
 
@@ -51,14 +52,11 @@ class SettingsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(60),
-                      child: Image.network("https://picsum.photos/200",
-                        fit: BoxFit.fill,
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        height: MediaQuery.of(context).size.width * 0.2,
-                      )
+                  ProfileImageWidget(
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.width * 0.2
                   ),
+
                   Row(
                     children: [
                       Spacer(flex: 3,),
@@ -79,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                         child: Icon(Icons.edit, size: 20,color: Colors.white,),
 
                         onPressed: () {
-                          AppResources.openPage(context, EditProfilePage());
+                          AppResources.openPageWithAnimation(context, EditProfilePage());
                         },
                       ),
 

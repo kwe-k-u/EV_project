@@ -128,4 +128,15 @@ class AppResources{
 
 
 
+  AppResources.openPageWithAnimation(BuildContext context, Widget page){
+    Navigator.of(context).push( PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation){
+          return page;
+          },
+        opaque: false),
+
+    );
+  }
+
+
 }
