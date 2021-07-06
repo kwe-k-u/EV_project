@@ -1,9 +1,13 @@
+import 'package:ev_project/ui/pages/dashboard.dart';
+import 'package:ev_project/ui/pages/editProfilePage.dart';
 import 'package:ev_project/ui/pages/emailSignInPage.dart';
 import 'package:ev_project/ui/pages/emailSignUpPage.dart';
 import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/rideUser.dart';
 import 'package:ev_project/utils/services/auth.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -64,12 +68,35 @@ class Homepage extends StatelessWidget {
                   ],
                 ),
                 color: resources.secondaryColor,
-                onPressed: ()async{
-                  User? user = await signInWithGoogle();
-                  if (user == null)
-                    print("No user");
-                  else
-                    print("user info ${user.toString()}");
+                onPressed: ()async {
+                  User? _user = await signInWithGoogle();
+                  if (_user != null) {
+                    Map<String, dynamic>? data = await getUserProfile(
+                        _user.uid);
+                    RideUser rideUser = RideUser.fromMapAndUser(_user, data);
+
+
+                    if (data != null) { //if the user is an existing user
+                      //todo remove if condition when cloud trigger for new user is added
+                      //syncing additional data;
+                      if (data.containsKey("profileUrl"))
+                        rideUser.profileImageUrl = data["profileUrl"];
+                      rideUser.paymentMethods = data["paymentMethods"];
+                      rideUser.currentPaymentMethodIndex = data["currentPaymentMethodIndex"];
+                      
+                      if (data.containsKey("institution"))
+                        rideUser.institution = data["institution"];
+                      else
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.orange,
+                              content: Text("Kindly add an institution to your profile"),
+                            )
+                        );
+                    }
+                    AppResources.openPage(
+                        context, Dashboard()); //todo pass user
+                  }
                 }
             ),
 

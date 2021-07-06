@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           else
             return MaterialApp(
               home: Scaffold(
-                body: Container(child: Text("Error. Restart application"),),
+                body: Container(),
               ),
             );
         }

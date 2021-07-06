@@ -1,3 +1,4 @@
+import 'package:ev_project/ui/widgets/CustomDropDown.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
@@ -15,10 +16,14 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final AppResources resources = AppResources();
+  String institution = "";
 
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+
     return Scaffold(
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.app_settings_alt_outlined),
@@ -82,6 +87,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
               width: MediaQuery.of(context).size.width * 0.7,
               hintText: "Phone Number",
               icon: Icons.phone,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
+
+
+
+            CustomDropDown(
+              label: "Institution",
+              width: size.width * 0.8,
+              height: size.height * 0.13,
+              onChanged: (value){
+                institution = value;//todo replace with controller?
+              },
+              items: [
+                "Please Select",
+                "Ashesi University",
+                "",
+                ""
+              ],
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
             CustomRoundedButton(

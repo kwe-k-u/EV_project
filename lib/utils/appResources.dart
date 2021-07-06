@@ -95,7 +95,7 @@ class AppResources{
       final Email email = Email(
         body: feedback.text,
         subject: 'Ashesi EV Project feedback - UI',
-        recipients: ['kwekuaacquaye@gmail.com'],
+        recipients: ['developer.ozone@gmail.com'],
         attachmentPaths: [screenshotFilePath],
         isHTML: false,
       );

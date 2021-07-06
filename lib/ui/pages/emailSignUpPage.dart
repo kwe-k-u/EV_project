@@ -60,6 +60,7 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
               child: Icon(Ionicons.logo_github, size: 50,),
             ),
 
+
             Spacer(flex: 1,),
             CustomTextField(
               controller: email,
@@ -99,7 +100,7 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
               width: size.width * 0.8,
               height: size.height * 0.13,
               onChanged: (value){
-                institution = value;//todo repalce with controller?
+                institution = value;//todo replace with controller?
               },
               items: [
                 "Please Select",

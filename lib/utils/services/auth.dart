@@ -1,8 +1,10 @@
+import 'package:ev_project/utils/objects/rideUser.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
-Future<User?>? signInWithGoogle() async {
+Future<User?> signInWithGoogle() async {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -23,15 +25,15 @@ Future<User?>? signInWithGoogle() async {
 
   // Once signed in, return the UserCredential
   UserCredential credential =  await firebaseAuth.signInWithCredential(googleCredential);
-  User user = credential.user!;
+  User _user = credential.user!;
 
-  assert(!user.isAnonymous);
+  assert(!_user.isAnonymous);
   // assert (await user.getIdToken() != null);
 
   final User currentUser = firebaseAuth.currentUser!;
-  assert(currentUser.uid == user.uid);
+  assert(currentUser.uid == _user.uid);
 
-  return user;
+  return _user;
 }
 
 
@@ -81,7 +83,7 @@ Future<User?>? signUpWithEmail(String email, String password, String institution
   // }
   return null;
 }
-
+//todo when a new user is created, trigger a profile creation process on the cloud
 
 // Future<void> updateUserPhoneNumber(String phoneNumber, User currentUser) async{
 //
