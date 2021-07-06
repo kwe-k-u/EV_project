@@ -2,16 +2,17 @@
 import 'package:ev_project/utils/objects/paymentMethod.dart';
 import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class RideUser{
-  late String username;
-  late String email;
-  late String id;
-  late String? phoneNumber;
-  late String? institution;
-  late String profileImageUrl;
-  late List<PaymentMethod> paymentMethods;
-  late int currentPaymentMethodIndex;
+class RideUser extends ChangeNotifier{
+  late String _username;
+  late String _email;
+  late String _id;
+  late String? _phoneNumber;
+  late String? _institution;
+  late String _profileImageUrl;
+  late List<PaymentMethod> _paymentMethods;
+  late int _currentPaymentMethodIndex;
 
 
   RideUser.fromMapAndUser(User user, Map<String, dynamic>? map){
@@ -22,20 +23,84 @@ class RideUser{
     }
 
 
-    this.email = user.email!;
-    this.phoneNumber = user.phoneNumber ?? data("phoneNumber") ?? "";
-    this.id = user.uid;
-    this.profileImageUrl = user.photoURL ?? data("photoUrl") ?? "";
-    this.username = user.displayName ?? user.email!;
-    this.paymentMethods = data("paymentMethods") ?? [PaymentMethod("Cash", "", PaymentMethodType.cash)];
-    this.currentPaymentMethodIndex = data("currentPaymentMethodIndex") ?? 0;
-    this.institution = data("institution");
-
+    this._email = user.email!;
+    this._phoneNumber = user.phoneNumber ?? data("phoneNumber") ?? "";
+    this._id = user.uid;
+    this._profileImageUrl = user.photoURL ?? data("photoUrl") ?? "";
+    this._username = user.displayName ?? user.email!;
+    this._paymentMethods = data("paymentMethods") ?? [PaymentMethod("Cash", "", PaymentMethodType.cash)];
+    this._currentPaymentMethodIndex = data("currentPaymentMethodIndex") ?? 0;
+    this._institution = data("institution");
 
     if (map == null)
       updateProfile(this.asMap());
 
+    notifyListeners();
   }
+
+
+
+  //setter
+  set username(String value) {
+    _username = value;
+    notifyListeners();
+  }
+
+  set currentPaymentMethodIndex(int value) {
+    _currentPaymentMethodIndex = value;
+    notifyListeners();
+  }
+
+  set paymentMethods(List<PaymentMethod> value) {
+    _paymentMethods = value;
+    notifyListeners();
+  }
+
+
+  set profileImageUrl(String value) {
+    _profileImageUrl = value;
+    notifyListeners();
+  }
+
+
+  set institution(String value) {
+    _institution = value;
+    notifyListeners();
+  }
+
+
+  set phoneNumber(String value) {
+    _phoneNumber = value;
+    notifyListeners();
+  }
+
+
+  set id(String value) {
+    _id = value;
+    notifyListeners();
+  }
+
+
+  set email(String value) {
+    _email = value;
+    notifyListeners();
+  }
+
+
+
+
+
+
+
+  //getters
+  String get username => _username;
+  int get currentPaymentMethodIndex => _currentPaymentMethodIndex;
+  List<PaymentMethod> get paymentMethods => _paymentMethods;
+  String get profileImageUrl => _profileImageUrl;
+  String get institution => _institution ?? "";
+  String get phoneNumber => _phoneNumber ?? "";
+  String get id => _id;
+  String get email => _email;
 
 
 
@@ -52,6 +117,9 @@ class RideUser{
       "institution" : institution
     };
   }
+
+
+
 
 
 

@@ -79,14 +79,12 @@ class Homepage extends StatelessWidget {
                     if (data != null) { //if the user is an existing user
                       //todo remove if condition when cloud trigger for new user is added
                       //syncing additional data;
-                      if (data.containsKey("profileUrl"))
-                        rideUser.profileImageUrl = data["profileUrl"];
-                      rideUser.paymentMethods = data["paymentMethods"];
-                      rideUser.currentPaymentMethodIndex = data["currentPaymentMethodIndex"];
+                      // if (data.containsKey("profileUrl"))
+                      //   rideUser.profileImageUrl = data["profileUrl"];
+                      // rideUser.paymentMethods = data["paymentMethods"] ?? [];
+                      // rideUser.currentPaymentMethodIndex = data["currentPaymentMethodIndex"];
                       
-                      if (data.containsKey("institution"))
-                        rideUser.institution = data["institution"];
-                      else
+                      if (!data.containsKey("institution"))
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               backgroundColor: Colors.orange,
@@ -95,7 +93,7 @@ class Homepage extends StatelessWidget {
                         );
                     }
                     AppResources.openPage(
-                        context, Dashboard()); //todo pass user
+                        context, Dashboard(rideUser));
                   }
                 }
             ),

@@ -1,11 +1,13 @@
 import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 
 class OnBoardingPage extends StatefulWidget {
-  const OnBoardingPage({Key? key}) : super(key: key);
+  final RideUser user;
+  const OnBoardingPage(this.user,{Key? key}) : super(key: key);
 
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState();
@@ -18,7 +20,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   void _onIntroEnd(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => Dashboard()),
+      MaterialPageRoute(builder: (_) => Dashboard(widget.user)),
     );
   }
 

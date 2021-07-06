@@ -6,7 +6,9 @@ import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/rideUser.dart';
 import 'package:ev_project/utils/services/auth.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -89,16 +91,19 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
                 User? user = await logInWithEmail(email.text, password.text);
                 if (user == null)
                   print("No user");
-                else
+                else {
                   print("user info ${user.toString()}");
-                // if (await resources.showIntroPage() )
-                //   Navigator.pushReplacement(context, MaterialPageRoute(
-                //       builder: (context) => OnBoardingPage()
-                //   ));
-                // else
-                //   Navigator.pushReplacement(context, MaterialPageRoute(
-                //       builder: (context) => Dashboard()
-                //   ));
+                  Map<String, dynamic>? map = await getUserProfile(user.uid);
+                  RideUser rideUser = RideUser.fromMapAndUser(user, map);
+                  if (await resources.showIntroPage())
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => OnBoardingPage(rideUser)
+                    ));
+                  else
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => Dashboard(rideUser)
+                    ));
+                }
               },
             ),
 

@@ -7,7 +7,9 @@ import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/rideUser.dart';
 import 'package:ev_project/utils/services/auth.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -118,19 +120,18 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
                 onPressed: () async{
 
                   User? user = await signUpWithEmail(email.text, password.text, institution);
+
                   if (user == null)
                     print("No user");
-                  else
+                  else {
+                    Map<String, dynamic>? map = await getUserProfile(user.uid);
+                    RideUser rideUser = RideUser.fromMapAndUser(user, map);
                     print("user info ${user.toString()}");
-
-                  // if (await resources.showIntroPage() )
-                  //   Navigator.pushReplacement(context, MaterialPageRoute(
-                  //       builder: (context) => OnBoardingPage()
-                  //   ));
-                  // else
-                  //   Navigator.pushReplacement(context, MaterialPageRoute(
-                  //       builder: (context) => Dashboard()
-                  //   ));
+                    if (await resources.showIntroPage())
+                      AppResources.openPage(context, OnBoardingPage(rideUser));
+                    else
+                      AppResources.openPage(context, Dashboard(rideUser));
+                  }
                 },
             ),
 

@@ -5,11 +5,14 @@ import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/rideUser.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  final RideUser user;
+  const Dashboard(this.user, {Key? key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -17,6 +20,13 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   AppResources resources = AppResources();
+  late RideUser user;
+
+  @override
+  void initState() {
+    user = widget.user;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,44 +34,24 @@ class _DashboardState extends State<Dashboard> {
         .of(context)
         .size;
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   heroTag: "",
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        padding: EdgeInsets.only(top: size.height * 0.05),
-        // child: SlidingSheet(
-        //   elevation: 8,
-        //   cornerRadius: 16,
-        //   snapSpec: const SnapSpec(
-        //     // Enable snapping. This is true by default.
-        //     snap: true,
-        //     // Set custom snapping points.
-        //     snappings: [0.1, 0.6, 1.0],
-        //     // Define to what the snappings relate to. In this case,
-        //     // the total available space that the sheet can expand to.
-        //     positioning: SnapPositioning.relativeToAvailableSpace,
-        //   ),
-        //   // The body widget will be displayed under the SlidingSheet
-        //   // and a parallax effect can be applied to it.
-        //   headerBuilder: (context, state) {
-        //     return _sheetHeader(size);
-        //   },
-        //   body: ,
-        //   builder: (context, state) {
-        //     // This is the content of the sheet that will get
-        //     // scrolled, if the content is bigger than the available
-        //     // height of the sheet.
-        //     return _sheetBody(size);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<RideUser>(create: (_) => user)
+      ],
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   heroTag: "",
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
         //   },
         // ),
-        child: RequestSheet(
-          body:_buildBody(MediaQuery.of(context).size,),
-          requestMade: Random().nextBool(),
+        body: Container(
+          padding: EdgeInsets.only(top: size.height * 0.05),
+          child: RequestSheet(
+            body:_buildBody(MediaQuery.of(context).size,),
+            requestMade: Random().nextBool(),
+          ),
         ),
       ),
     );

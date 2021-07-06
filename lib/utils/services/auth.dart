@@ -54,8 +54,8 @@ Future<User?>? signUpWithEmail(String email, String password, String institution
     UserCredential credential =  await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
     User user = credential.user!;
     // user.providerData.
-    OAuthCredential oauth = OAuthCredential(signInMethod: '', providerId: '');
-    user.linkWithCredential(userCredential.credential!);
+    // OAuthCredential oauth = OAuthCredential(signInMethod: '', providerId: '');
+    // user.linkWithCredential(oauth);//todo implement
     // firebaseAuth.currentUser.
 
     assert(!user.isAnonymous);
@@ -68,7 +68,7 @@ Future<User?>? signUpWithEmail(String email, String password, String institution
     // await updateUserPhoneNumber(phoneNumber, currentUser); //todo implement
 
     assert(currentUser.uid == user.uid);
-    await user.reload();
+    // await user.reload();
     return user;
 
 
@@ -118,18 +118,20 @@ Future<User?>? logInWithEmail(String email, String password) async{
         .signInWithEmailAndPassword(
         email: email,
         password: password);
-    print(userCredential.toString());
+    // print(userCredential.toString());
     // Once signed in, return the UserCredential
 
+  User user = userCredential.user!;
+
   print('before');
-    UserCredential credential =  await firebaseAuth.signInWithCredential(userCredential.credential!);
-  print('null 1');
+    // UserCredential credential =  await firebaseAuth.signInWithCredential(userCredential.credential!);
+  // print('null 1');
 
-    User user = credential.user!;
-  print('null 2');
-
-    assert(!user.isAnonymous);
-  print('null 3');
+    // User user = credential.user!;
+  // print('null 2');
+  //
+  //   assert(!user.isAnonymous);
+  // print('null 3');
     // assert (await user.getIdToken() != null);
 
     final User currentUser = firebaseAuth.currentUser!;
