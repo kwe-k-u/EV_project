@@ -1,6 +1,6 @@
 import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/utils/appResources.dart';
-import 'package:ev_project/utils/objects/rideUser.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 

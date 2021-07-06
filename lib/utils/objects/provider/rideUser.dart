@@ -2,7 +2,7 @@
 import 'package:ev_project/utils/objects/paymentMethod.dart';
 import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class RideUser extends ChangeNotifier{
   late String _username;

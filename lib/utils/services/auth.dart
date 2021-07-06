@@ -1,4 +1,4 @@
-import 'package:ev_project/utils/objects/rideUser.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

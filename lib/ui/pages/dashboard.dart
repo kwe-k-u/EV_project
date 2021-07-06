@@ -5,7 +5,7 @@ import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
-import 'package:ev_project/utils/objects/rideUser.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';

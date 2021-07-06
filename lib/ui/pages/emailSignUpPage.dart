@@ -7,7 +7,7 @@ import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
-import 'package:ev_project/utils/objects/rideUser.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:ev_project/utils/services/auth.dart';
 import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
