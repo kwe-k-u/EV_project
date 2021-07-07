@@ -6,17 +6,24 @@ import 'package:ev_project/ui/pages/tripHistoryPage.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
-class SettingsPage extends StatelessWidget {
-  final AppResources resources = AppResources();
 
-  SettingsPage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final AppResources resources = AppResources();
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    RideUser user = context.read<RideUser>();
 
 
     return Scaffold(
@@ -38,7 +45,7 @@ class SettingsPage extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 16.0),
                 child: IconButton(
                   icon: Icon(Icons.chevron_left,
-                  size: 35,),
+                    size: 35,),
                   onPressed: (){
                     Navigator.pop(context);
                   },
@@ -53,22 +60,23 @@ class SettingsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ProfileImageWidget(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.width * 0.2
+                    url: user.profileImageUrl,
+                    width: size.width * 0.2,
+                    height: size.width * 0.2,
                   ),
 
                   Row(
                     children: [
                       Spacer(flex: 3,),
                       Column(
-                        children: [
+                          children: [
 
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0, top: 12.0),
-                            child: Text("Alex Fluid"),
-                          ),
-                          Text("Ashesi University, ER")
-                        ]
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 4.0, top: 12.0),
+                              child: Text(user.username),
+                            ),
+                            Text("${user.institution}, ER")
+                          ]
                       ),
                       FloatingActionButton(
                         elevation: 0,
@@ -121,20 +129,20 @@ class SettingsPage extends StatelessWidget {
               title: Text("About"),
               trailing: Icon(Icons.chevron_right),
             ),
-            
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomRoundedButton(
                 borderRadius: 8.0,
                 width: MediaQuery.of(context).size.width * 0.4,
-                  onPressed: (){
+                onPressed: (){
                   Navigator.popUntil(context, (route) => route.isFirst);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(
                           builder: (context)=> Homepage()
                       )
                   );
-                  },
+                },
                 child: Text("LOG OUT", style: TextStyle(color: Colors.white),),
                 color: resources.secondaryColor,
               ),
@@ -145,3 +153,4 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
+

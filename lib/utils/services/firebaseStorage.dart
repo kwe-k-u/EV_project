@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ev_project/utils/objects/paymentMethod.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -26,8 +27,8 @@ Future<String?> addPaymentMethod(PaymentMethod method)async{
 }
 
 
-Future<void> updateProfile(Map<String, dynamic> map) async{
-  firestore.doc(ROOT + map["id"] + PROFILE_PATH).set(map);
+Future<void> updateProfile(RideUser user) async{//todo update firebase auth email, password etc
+  firestore.doc(ROOT + user.id + PROFILE_PATH).set(user.asMap());
 }
 
 

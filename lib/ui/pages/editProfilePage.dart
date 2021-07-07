@@ -1,12 +1,15 @@
 import 'package:ev_project/ui/widgets/CustomDropDown.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
+import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -17,13 +20,28 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final AppResources resources = AppResources();
-  String institution = "";
+  late RideUser user;
+  late String institution;
+  late TextEditingController username;
+  late TextEditingController email;
+  late TextEditingController phoneNumber;
+  //todo add controller for image
 
+  @override
+  void initState() {
+    super.initState();
+    user = context.read<RideUser>();
+
+    username = new TextEditingController(text: user.username);
+    phoneNumber = new TextEditingController(text: user.phoneNumber);
+    email = new TextEditingController(text: user.email);
+    institution = user.institution;
+
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
 
     return Scaffold(
       // floatingActionButton: FloatingActionButton(
@@ -60,21 +78,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                 Align(
                   alignment: Alignment.center,
-                  child: InkWell(
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-                        child: Image.network("https://picsum.photos/200",
-                          fit: BoxFit.fill,
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          height: MediaQuery.of(context).size.width * 0.3,
-                        )
-                    ),
-                    onTap: ()async{
+                    child: ProfileImageWidget(
+                          width: size.width * 0.3,
+                          height: size.width * 0.3,
+                      url: user.profileImageUrl,
+                    onPressed: ()async{
                       final picker = ImagePicker();
 
                       final pickedFile = await picker.getImage(source: ImageSource.gallery);
                       if (pickedFile != null) {
-                        // return File(pickedFile.path);
+                        // return File(pickedFile.path);//todo upload to cloud storage and get link
                       }
                     },
                   ),
@@ -82,19 +95,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 CustomTextField(
                     width: MediaQuery.of(context).size.width * 0.7,
                     hintText: "Username",
+                    controller: username,
                     icon: Icons.person
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
                 CustomTextField(
                   width: MediaQuery.of(context).size.width * 0.7,
                   hintText: "Email",
+                  controller: email,
                   icon: Icons.email_outlined,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
                 CustomTextField(
                   width: MediaQuery.of(context).size.width * 0.7,
                   hintText: "Phone Number",
+                  controller: phoneNumber,
                   icon: Icons.phone,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
+                CustomDropDown(
+                  label: "Institution",
+                  width: size.width * 0.8,
+                  height: size.height * 0.13,
+                  onChanged: (value){
+                    institution = value;//todo replace with controller?
+                  },
+                  items: [
+                    "Please Select",
+                    "Ashesi University",
+                    "",
+                    ""
+                  ],
                 ),
                 SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
                 CustomRoundedButton(
@@ -102,6 +133,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: Text("Save Changes", style: TextStyle(color: Colors.white),),
                     color: resources.secondaryColor,
                     onPressed: (){
+                      user.phoneNumber = phoneNumber.text;
+                      user.email = email.text;
+                      user.username = username.text;
+                      //todo image update;
+                      updateProfile(user);
                       Navigator.pop(context);
                     })
 

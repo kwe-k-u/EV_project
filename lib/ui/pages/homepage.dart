@@ -11,6 +11,7 @@ import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 
 class Homepage extends StatelessWidget {
@@ -74,6 +75,8 @@ class Homepage extends StatelessWidget {
                     Map<String, dynamic>? data = await getUserProfile(
                         _user.uid);
                     RideUser rideUser = RideUser.fromMapAndUser(_user, data);
+                    //todo better implementation?
+                    context.read<RideUser>().reassign(rideUser);
 
 
                     if (data != null) { //if the user is an existing user
@@ -93,7 +96,7 @@ class Homepage extends StatelessWidget {
                         );
                     }
                     AppResources.openPage(
-                        context, Dashboard(rideUser));
+                        context, Dashboard());
                   }
                 }
             ),

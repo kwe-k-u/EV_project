@@ -1,18 +1,13 @@
 import 'dart:math';
-
 import 'package:ev_project/ui/pages/SettingsPage.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
-import 'package:ev_project/ui/widgets/customButton.dart';
-import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sliding_sheet/sliding_sheet.dart';
 
 class Dashboard extends StatefulWidget {
-  final RideUser user;
-  const Dashboard(this.user, {Key? key}) : super(key: key);
+  const Dashboard( {Key? key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -24,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    user = widget.user;
+    user = context.read<RideUser>();
     super.initState();
   }
 
@@ -34,31 +29,43 @@ class _DashboardState extends State<Dashboard> {
         .of(context)
         .size;
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<RideUser>(create: (_) => user)
-      ],
-      child: Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   heroTag: "",
-        //   child: Icon(Icons.app_settings_alt_outlined),
-        //   onPressed: (){
-        //     resources.sendFeedback(context);
-        //   },
-        // ),
-        body: Container(
-          padding: EdgeInsets.only(top: size.height * 0.05),
-          child: RequestSheet(
-            body:_buildBody(MediaQuery.of(context).size,),
-            requestMade: Random().nextBool(),
-          ),
+    return Scaffold(
+      // floatingActionButton: FloatingActionButton(
+      //   heroTag: "",
+      //   child: Icon(Icons.app_settings_alt_outlined),
+      //   onPressed: (){
+      //     resources.sendFeedback(context);
+      //   },
+      // ),
+      body: Container(
+        padding: EdgeInsets.only(top: size.height * 0.05),
+        child: RequestSheet(
+          body:_Body(),
+          requestMade: Random().nextBool(),
         ),
       ),
     );
   }
 
 
-  Widget _buildBody(Size size) {
+
+
+
+}
+
+
+
+class _Body extends StatefulWidget {
+  const _Body({Key? key}) : super(key: key);
+
+  @override
+  __BodyState createState() => __BodyState();
+}
+
+class __BodyState extends State<_Body> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Image(
@@ -86,5 +93,4 @@ class _DashboardState extends State<Dashboard> {
       ],
     );
   }
-
 }

@@ -13,6 +13,7 @@ import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 
 class EmailSignUpPage extends StatefulWidget {
@@ -126,11 +127,13 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
                   else {
                     Map<String, dynamic>? map = await getUserProfile(user.uid);
                     RideUser rideUser = RideUser.fromMapAndUser(user, map);
+                    context.read<RideUser>().reassign(rideUser);
+
                     print("user info ${user.toString()}");
                     if (await resources.showIntroPage())
-                      AppResources.openPage(context, OnBoardingPage(rideUser));
+                      AppResources.openPage(context, OnBoardingPage());
                     else
-                      AppResources.openPage(context, Dashboard(rideUser));
+                      AppResources.openPage(context, Dashboard());
                   }
                 },
             ),

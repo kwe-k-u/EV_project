@@ -12,7 +12,7 @@ import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-
+import 'package:provider/provider.dart';
 
 class EmailSignInPage extends StatefulWidget {
   const EmailSignInPage({Key? key}) : super(key: key);
@@ -95,13 +95,14 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
                   print("user info ${user.toString()}");
                   Map<String, dynamic>? map = await getUserProfile(user.uid);
                   RideUser rideUser = RideUser.fromMapAndUser(user, map);
+                  context.read<RideUser>().reassign(rideUser);
                   if (await resources.showIntroPage())
                     Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => OnBoardingPage(rideUser)
+                        builder: (context) => OnBoardingPage()
                     ));
                   else
                     Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => Dashboard(rideUser)
+                        builder: (context) => Dashboard()
                     ));
                 }
               },

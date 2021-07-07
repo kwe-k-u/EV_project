@@ -4,7 +4,7 @@ import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RideUser extends ChangeNotifier{
+class RideUser with ChangeNotifier{
   late String _username;
   late String _email;
   late String _id;
@@ -14,6 +14,8 @@ class RideUser extends ChangeNotifier{
   late List<PaymentMethod> _paymentMethods;
   late int _currentPaymentMethodIndex;
 
+
+  RideUser();
 
   RideUser.fromMapAndUser(User user, Map<String, dynamic>? map){
     dynamic data(String key){
@@ -33,11 +35,23 @@ class RideUser extends ChangeNotifier{
     this._institution = data("institution");
 
     if (map == null)
-      updateProfile(this.asMap());
+      updateProfile(this);
 
     notifyListeners();
   }
 
+  void reassign(RideUser user){
+
+     _username = user.username;
+    _email = user.email;
+    _id = user.id;
+     _phoneNumber = user.phoneNumber;
+     this._institution = user.institution;
+    this._profileImageUrl = user.profileImageUrl;
+    this._paymentMethods = user.paymentMethods;
+    this._currentPaymentMethodIndex = user.currentPaymentMethodIndex;
+    notifyListeners();
+  }
 
 
   //setter

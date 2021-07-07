@@ -1,8 +1,10 @@
 import 'package:ev_project/ui/pages/homepage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 void main() {
@@ -34,12 +36,20 @@ class MyApp extends StatelessWidget {
       future: Firebase.initializeApp(),
         builder: (context, snapshot){
           if (snapshot.connectionState == ConnectionState.done && !snapshot.hasError)
-            return MaterialApp(
-              title: 'EV project',
-              theme: ThemeData(
-                  splashFactory: PathSplash.splashFactory(resources.createSamplePath())
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider<RideUser>(create: (_) => RideUser())
+              ],
+              child: MaterialApp(
+                title: 'EV project',
+                theme: ThemeData(
+                    splashFactory: PathSplash.splashFactory(resources.createSamplePath())
+                ),
+                home: Homepage(),
               ),
-              home: Homepage(),
+              builder: (context, widget){
+                return widget!;
+              },
             );
           else
             return MaterialApp(

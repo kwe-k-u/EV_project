@@ -2,9 +2,11 @@ import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:provider/provider.dart';
 
 
 class RequestStatusSheet extends StatefulWidget {
@@ -20,10 +22,16 @@ class _RequestStatusSheetState extends State<RequestStatusSheet> {
   SheetController controller = new SheetController();
   TextStyle textStyle = new TextStyle();
   AppResources resources = AppResources();
+  late RideUser user;
   bool tapped = false;
   bool show = false;
 
 
+  @override
+  void initState() {
+    super.initState();
+    user = context.read<RideUser>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +86,7 @@ class _RequestStatusSheetState extends State<RequestStatusSheet> {
     return Container(
       child: ListTile(
         leading: ProfileImageWidget(
+          url: user.profileImageUrl,
           width: MediaQuery.of(context).size.width * 0.12,
           height: MediaQuery.of(context).size.width * 0.12,
         ),
