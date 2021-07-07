@@ -111,7 +111,7 @@ class RideUser with ChangeNotifier{
   int get currentPaymentMethodIndex => _currentPaymentMethodIndex;
   List<PaymentMethod> get paymentMethods => _paymentMethods;
   String get profileImageUrl => _profileImageUrl;
-  String get institution => _institution ?? "";
+  String get institution => _institution ?? "Ashesi University, ER";
   String get phoneNumber => _phoneNumber ?? "";
   String get id => _id;
   String get email => _email;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ev_project/ui/widgets/CustomDropDown.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
@@ -25,6 +27,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController username;
   late TextEditingController email;
   late TextEditingController phoneNumber;
+  File? file;
   //todo add controller for image
 
   @override
@@ -81,13 +84,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     child: ProfileImageWidget(
                           width: size.width * 0.3,
                           height: size.width * 0.3,
+                      file: file,
                       url: user.profileImageUrl,
                     onPressed: ()async{
                       final picker = ImagePicker();
 
                       final pickedFile = await picker.getImage(source: ImageSource.gallery);
                       if (pickedFile != null) {
-                        // return File(pickedFile.path);//todo upload to cloud storage and get link
+                        setState(() {
+                          file = File(pickedFile.path);
+
+                        });                        // return File(pickedFile.path);//todo upload to cloud storage and get link
                       }
                     },
                   ),

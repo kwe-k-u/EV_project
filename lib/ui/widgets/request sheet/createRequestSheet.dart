@@ -1,8 +1,10 @@
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:provider/provider.dart';
 
 
 class CreateRequestSheet extends StatefulWidget {
@@ -19,8 +21,7 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
   AppResources resources = AppResources();
   bool tapped = false;
   bool show = false;
-
-
+  late RideUser user = context.read<RideUser>();
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +288,8 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Welcome back, Kwesi',
+            'Welcome back, ${user.username}',
+            overflow: TextOverflow.fade,
             style: textStyle.copyWith(
               color: Colors.white.withAlpha(150),
               fontSize: 22,

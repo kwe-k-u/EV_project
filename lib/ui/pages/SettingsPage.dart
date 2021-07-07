@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: const EdgeInsets.only(bottom: 4.0, top: 12.0),
                               child: Text(user.username),
                             ),
-                            Text("${user.institution}, ER")
+                            Text(user.institution)
                           ]
                       ),
                       FloatingActionButton(
