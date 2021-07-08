@@ -2,6 +2,7 @@ import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/ui/pages/editProfilePage.dart';
 import 'package:ev_project/ui/pages/emailSignInPage.dart';
 import 'package:ev_project/ui/pages/emailSignUpPage.dart';
+import 'package:ev_project/ui/widgets/LocationTextField.dart';
 import 'package:ev_project/ui/widgets/TextButtonRow.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/utils/appResources.dart';

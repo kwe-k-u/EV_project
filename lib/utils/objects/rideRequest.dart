@@ -1,14 +1,14 @@
 
 
-import 'package:ev_project/utils/objects/location.dart';
+import 'package:ev_project/utils/objects/rideLocation.dart';
 
 class RideRequest{
   late String id;
-  late Location pickupLocation;
+  late RideLocation pickupLocation;
   late DateTime startDateTime;
   late DateTime completionDateTime;
   late DateTime requestDateTime;
-  late Location dropOffLocation;
+  late RideLocation dropOffLocation;
   late double? fare;
 
 }

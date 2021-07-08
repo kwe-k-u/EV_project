@@ -123,60 +123,6 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
 
 
 
-  // Widget buildSteps(BuildContext context) {
-  //   final steps = [
-  //     // Step('Go to your pubspec.yaml file.', '2 seconds'),
-  //     // Step(
-  //     //     "Add the newest version of 'sliding_sheet' to your dependencies.", '5 seconds'),
-  //     // Step("Run 'flutter packages get' in the terminal.", '4 seconds'),
-  //     // Step("Happy coding!", 'Forever'),
-  //   ];
-  //
-  //   return ListView.builder(
-  //     shrinkWrap: true,
-  //     physics: const NeverScrollableScrollPhysics(),
-  //     itemCount: steps.length,
-  //     itemBuilder: (context, i) {
-  //       final step = steps[i];
-  //
-  //       return Padding(
-  //         padding: const EdgeInsets.fromLTRB(56, 16, 0, 0),
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: <Widget>[
-  //             Text(
-  //               step.instruction,
-  //               style: textStyle.copyWith(
-  //                 fontSize: 16,
-  //               ),
-  //             ),
-  //             const SizedBox(height: 16),
-  //             Row(
-  //               children: <Widget>[
-  //                 Text(
-  //                   '${step.time}',
-  //                   style: textStyle.copyWith(
-  //                     color: Colors.grey,
-  //                     fontSize: 15,
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 16),
-  //                 Expanded(
-  //                   child: Container(
-  //                     height: 1,
-  //                     color: Colors.grey.shade300,
-  //                   ),
-  //                 )
-  //               ],
-  //             ),
-  //             const SizedBox(height: 8),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
 
 
@@ -212,7 +158,6 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
       ),
     );
   }
-
 
 
   Widget _collapsedHeader(){

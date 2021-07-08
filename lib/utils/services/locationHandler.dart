@@ -1,38 +1,26 @@
 
-
-
-
-
-
-
-
-
 import 'package:dio/dio.dart';
-import 'package:ev_project/utils/objects/location.dart';
+import 'package:ev_project/utils/objects/rideLocation.dart';
 import 'package:ev_project/utils/objects/place_search.dart';
-import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 
-Future<Location> determinePosition() async {
+Future<RideLocation> determinePosition() async {
   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
   String placeName = await getAddressFromPosition(position);
 
-  return Location(latLng: LatLng(position.latitude, position.longitude), name: placeName);
+  return RideLocation(latLng: LatLng(position.latitude, position.longitude), name: placeName);
 }
 
 
 Future<String> getAddressFromPosition(Position position) async {
   try {
+    String location = await getAddressFromLatLng(LatLng(position.latitude, position.longitude));
+    return location;
 
-
-    Address place = (await Geocoder.local.findAddressesFromCoordinates(new Coordinates(position.latitude, position.longitude))).first;
-
-    return  place.addressLine;
-    // return  "${place.adminArea}, ${place.addressLine} ${place.countryName}";
   } catch (e) {
     return "${e.toString()}";
   }
@@ -42,10 +30,12 @@ Future<String> getAddressFromPosition(Position position) async {
 Future<String> getAddressFromLatLng(LatLng latLng) async {
   try {
 
+    Placemark placemark = (await placemarkFromCoordinates(latLng.latitude, latLng.longitude) ).first;
+    return placemark.name ?? "";
 
-    Address place = (await Geocoder.local.findAddressesFromCoordinates(new Coordinates(latLng.latitude, latLng.longitude))).first;
+    // Address place = (await Geocoder.local.findAddressesFromCoordinates(new Coordinates(latLng.latitude, latLng.longitude))).first;
 
-    return  place.addressLine;
+    return  "place.addressLine";
   } catch (e) {
     return "${e.toString()}";
   }
@@ -53,12 +43,10 @@ Future<String> getAddressFromLatLng(LatLng latLng) async {
 
 
 
-
+///Converts a address of a [place] as its LatLng coordinates
 Future<LatLng> getLatLngFromAddress(String place) async{
-  Address location = (await Geocoder.local.findAddressesFromQuery(place)).first;
-
-  LatLng latLng = LatLng(location.coordinates.latitude, location.coordinates.longitude);
-
+  Location location = (await locationFromAddress(place)).first;
+  LatLng latLng = new LatLng(location.latitude, location.longitude);
   return latLng;
 }
 
@@ -94,7 +82,7 @@ Future<LatLng> getLatLngFromAddress(String place) async{
 // }
 
 
-Future<List<PlaceSearch>> getPlaceSuggestions(String text, String lang ) async{
+Future<List<PlaceSearch>> getPlaceSuggestions(String text,{String lang = "en"}) async{
 
   Dio dio = new Dio();
   final response = await dio.get(

@@ -4,6 +4,7 @@ import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
@@ -21,6 +22,7 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     user = context.read<RideUser>();
     super.initState();
+    var geo = GeocodingPlatform.instance;
   }
 
   @override

@@ -1,7 +1,10 @@
+import 'package:ev_project/ui/widgets/LocationTextField.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/controllers/LocationController.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +18,7 @@ class RequestRideWidget extends StatefulWidget {
 class _RequestRideWidgetState extends State<RequestRideWidget> {
   final AppResources resources = AppResources();
   late AppState appState;
+  TextEditingController destination = new TextEditingController();
 
   @override
   void initState() {
@@ -34,22 +38,38 @@ class _RequestRideWidgetState extends State<RequestRideWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Enter Pickup location")),
-          CustomTextField(
-            icon: Icons.not_listed_location_outlined,
-            width: size.width * 0.7,
+
+          LocationTextField(
+              label: "Start location",
+              controller: LocationController(),
+              icon: Icons.my_location,
+              onChanged: (v){},
+              onIconTap: (){}
           ),
+          // Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Text("Enter Pickup location")),
+          // CustomTextField(
+          //   icon: Icons.not_listed_location_outlined,
+          //   width: size.width * 0.7,
+          // ),
 
 
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Enter destination")),
-          CustomTextField(
-            hintText: "Destination",
-            width: size.width * 0.7,
+        Padding(padding: EdgeInsets.all(8.0)),
+          LocationTextField(
+              label: "Destination",
+              controller: LocationController(),
+              icon: Icons.add,
+              onChanged: (v){},
+              onIconTap: (){}
           ),
+          // Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Text("Enter destination")),
+          // CustomTextField(
+          //   hintText: "Destination",
+          //   width: size.width * 0.7,
+          // ),
           Spacer(flex: 1,),
           CustomRoundedButton(
               child: Text("REQUEST RIDE", style: TextStyle(color: Colors.white),),
