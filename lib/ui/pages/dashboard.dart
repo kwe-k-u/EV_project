@@ -1,7 +1,7 @@
-import 'dart:math';
 import 'package:ev_project/ui/pages/SettingsPage.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,6 @@ class _DashboardState extends State<Dashboard> {
         padding: EdgeInsets.only(top: size.height * 0.05),
         child: RequestSheet(
           body:_Body(),
-          requestMade: Random().nextBool(),
         ),
       ),
     );

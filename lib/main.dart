@@ -1,5 +1,6 @@
 import 'package:ev_project/ui/pages/homepage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done && !snapshot.hasError)
             return MultiProvider(
               providers: [
-                ChangeNotifierProvider<RideUser>(create: (_) => RideUser())
+                ChangeNotifierProvider<RideUser>(create: (_) => RideUser()),
+                ChangeNotifierProvider<AppState>(create: (_) => AppState())
               ],
               child: MaterialApp(
                 title: 'EV project',

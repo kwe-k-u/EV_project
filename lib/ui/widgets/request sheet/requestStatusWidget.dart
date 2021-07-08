@@ -2,6 +2,7 @@ import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
+import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -9,16 +10,16 @@ import 'package:sliding_sheet/sliding_sheet.dart';
 import 'package:provider/provider.dart';
 
 
-class RequestStatusSheet extends StatefulWidget {
+class RequestStatusWidget extends StatefulWidget {
 
   final Widget body;
-  RequestStatusSheet({Key? key, required this.body}) : super(key: key);
+  RequestStatusWidget({Key? key, required this.body}) : super(key: key);
 
   @override
-  _RequestStatusSheetState createState() => _RequestStatusSheetState();
+  _RequestStatusWidgetState createState() => _RequestStatusWidgetState();
 }
 
-class _RequestStatusSheetState extends State<RequestStatusSheet> {
+class _RequestStatusWidgetState extends State<RequestStatusWidget> {
   SheetController controller = new SheetController();
   TextStyle textStyle = new TextStyle();
   AppResources resources = AppResources();
@@ -208,7 +209,9 @@ class _RequestStatusSheetState extends State<RequestStatusSheet> {
                 ),
               ),
               color: Colors.red,
-              onPressed: () {}
+              onPressed: () {
+              // context.read<AppState>().requestState = RequestState.Idle;
+              }
           ),
 
           Spacer(flex: 5,)
