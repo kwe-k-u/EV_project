@@ -24,6 +24,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
   TextStyle textStyle = new TextStyle();
   AppResources resources = AppResources();
   late RideUser user;
+  late AppState appState;
   bool tapped = false;
   bool show = false;
 
@@ -32,6 +33,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
   void initState() {
     super.initState();
     user = context.read<RideUser>();
+    appState = context.read<AppState>();
   }
 
   @override
@@ -210,7 +212,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
               ),
               color: Colors.red,
               onPressed: () {
-              // context.read<AppState>().requestState = RequestState.Idle;
+              appState.requestState = RequestState.Cancel;
               }
           ),
 

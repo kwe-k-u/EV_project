@@ -32,9 +32,11 @@ class _RequestSheetState extends State<RequestSheet> {
 
           case RequestState.Rider_found:
           //TODO: handle case
+          case RequestState.Cancel:
+          // TODO: Handle this case.z
+
           case RequestState.On_trip:
             return RequestStatusWidget(body: widget.body);
-        // return RequestStatusWidget(body: widget.body, routeContext: widget.routeContext);
         }
 
       },

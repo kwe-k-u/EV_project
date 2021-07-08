@@ -15,6 +15,10 @@ class AppState extends ChangeNotifier{
 
   set requestState(RequestState state){
     this._requestState = state;
+    if (state == RequestState.Cancel){
+      //todo method to cancel the trip and then change state to idle;
+      this._requestState = RequestState.Idle; //todo after waiting cancel future
+    }
     notifyListeners();
   }
 
@@ -26,5 +30,6 @@ enum RequestState {
   Searching_rider,
   Rider_found,
   On_trip,
+  Cancel
 
 }
