@@ -15,9 +15,9 @@ class TextButtonRow extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(right:4.0),
-          child: Text(text),
+          child: Text(text, overflow: TextOverflow.fade,),
         ),
-        TextButton(child: Text(buttonText,),
+        TextButton(child: Text(buttonText, overflow: TextOverflow.fade,),
           onPressed: onPressed,
 
         )

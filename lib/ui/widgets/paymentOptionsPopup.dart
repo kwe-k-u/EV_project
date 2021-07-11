@@ -17,6 +17,7 @@ class PaymentOptionsPopup extends StatelessWidget {
       child: Column(
         children: [
           Text("Select a new Payment Method",
+            overflow: TextOverflow.fade,
             style: TextStyle(
                 fontWeight: FontWeight.w600
             ),
@@ -27,7 +28,7 @@ class PaymentOptionsPopup extends StatelessWidget {
               Navigator.pop(context);
               AppResources.openPage(context, AddPaymentMethodPage(mobileMoneyBool: true,));
             },
-            title: Text("Mobile money"),
+            title: Text("Mobile money", overflow: TextOverflow.fade,),
             leading: Icon(Ionicons.phone_portrait, color: resources.primaryColor),
           ),
 
@@ -36,7 +37,7 @@ class PaymentOptionsPopup extends StatelessWidget {
               Navigator.pop(context);
               AppResources.openPage(context, AddPaymentMethodPage(mobileMoneyBool: false,));
             },
-            title: Text("Visa Card"),
+            title: Text("Visa Card", overflow: TextOverflow.fade,),
             leading: Icon(Ionicons.card_outline, color: resources.primaryColor),
           ),
         ],

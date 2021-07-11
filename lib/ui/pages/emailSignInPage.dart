@@ -32,94 +32,96 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
     Size size = MediaQuery.of(context).size;
 
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        width: size.width,
-        height: size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          width: size.width,
+          height: size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
 
 
 
-            Spacer(flex: 9,),
+              Spacer(flex: 9,),
 
-            CircleAvatar(
-              // foregroundColor: resources.primaryColor,
-              minRadius: 30,
+              CircleAvatar(
+                // foregroundColor: resources.primaryColor,
+                minRadius: 30,
 
-              child: Icon(Ionicons.logo_github, size: 50,),
-            ),
+                child: Icon(Ionicons.logo_github, size: 50,),
+              ),
 
-            Spacer(flex: 1,),
-            CustomTextField(
-              width: size.width * 0.8,
-              height: size.height * 0.08,
-              controller: email,
-              hintText: "Email",
-              keyboardType: TextInputType.emailAddress,
-              icon: Icons.email_outlined
+              Spacer(flex: 1,),
+              CustomTextField(
+                width: size.width * 0.8,
+                height: size.height * 0.08,
+                controller: email,
+                hintText: "Email",
+                keyboardType: TextInputType.emailAddress,
+                icon: Icons.email_outlined
 
-            ),
+              ),
 
 
-            Spacer(flex: 1,),
-            CustomTextField(
-              width: size.width * 0.8,
-              height: size.height * 0.08,
-              controller: password,
-              hintText: "Password",
-                keyboardType: TextInputType.text,
-              obscureText: true,
-              icon: Icons.lock_outlined
-            ),
+              Spacer(flex: 1,),
+              CustomTextField(
+                width: size.width * 0.8,
+                height: size.height * 0.08,
+                controller: password,
+                hintText: "Password",
+                  keyboardType: TextInputType.text,
+                obscureText: true,
+                icon: Icons.lock_outlined
+              ),
 
-            Spacer(flex: 1,),
+              Spacer(flex: 1,),
 
-            CustomRoundedButton(
-              child: Text("Log In", style: TextStyle(color: Colors.white),),
-              color: resources.secondaryColor,
-              onPressed: () async{
+              CustomRoundedButton(
+                child: Text("Log In", style: TextStyle(color: Colors.white), overflow: TextOverflow.fade,),
+                color: resources.secondaryColor,
+                onPressed: () async{
 
-                User? user = await logInWithEmail(email.text, password.text);
-                if (user == null)
-                  print("No user");
-                else {
-                  print("user info ${user.toString()}");
-                  Map<String, dynamic>? map = await getUserProfile(user.uid);
-                  RideUser rideUser = RideUser.fromMapAndUser(user, map);
-                  context.read<RideUser>().reassign(rideUser);
-                  if (await resources.showIntroPage())
+                  User? user = await logInWithEmail(email.text, password.text);
+                  if (user == null)
+                    print("No user");
+                  else {
+                    print("user info ${user.toString()}");
+                    Map<String, dynamic>? map = await getUserProfile(user.uid);
+                    RideUser rideUser = RideUser.fromMapAndUser(user, map);
+                    context.read<RideUser>().reassign(rideUser);
+                    if (await resources.showIntroPage())
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) => OnBoardingPage()
+                      ));
+                    else
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) => Dashboard()
+                      ));
+                  }
+                },
+              ),
+
+              TextButtonRow(
+                  text: "Don't have an account??",
+                  buttonText: "Sign Up",
+                  onPressed: (){
                     Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => OnBoardingPage()
-                    ));
-                  else
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => Dashboard()
-                    ));
-                }
-              },
-            ),
+                        builder: (context)=> EmailSignUpPage())
+                    );
+                  }
+              ),
 
-            TextButtonRow(
-                text: "Don't have an account??",
-                buttonText: "Sign Up",
-                onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context)=> EmailSignUpPage())
-                  );
-                }
-            ),
-
-            Spacer(flex: 9,),
-          ],
+              Spacer(flex: 9,),
+            ],
+          ),
         ),
       ),
     );

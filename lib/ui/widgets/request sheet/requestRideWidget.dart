@@ -72,7 +72,11 @@ class _RequestRideWidgetState extends State<RequestRideWidget> {
           // ),
           Spacer(flex: 1,),
           CustomRoundedButton(
-              child: Text("REQUEST RIDE", style: TextStyle(color: Colors.white),),
+              child: Text("REQUEST RIDE",
+                style: TextStyle(
+                    color: Colors.white),
+                overflow: TextOverflow.fade,
+              ),
               color: resources.secondaryColor,
               onPressed: () {
                 setState(() {
@@ -85,17 +89,17 @@ class _RequestRideWidgetState extends State<RequestRideWidget> {
           Divider(thickness: 2.0,),
           ListTile(
             leading: Icon(Icons.history),
-            title: Text("Cafeteria"),
+            title: Text("Cafeteria", overflow: TextOverflow.fade,),
             onTap: (){},
           ),
           ListTile(
             leading: Icon(Icons.history),
-            title: Text("Lobby"),
+            title: Text("Lobby", overflow: TextOverflow.fade,),
             onTap: (){},
           ),
           ListTile(
             leading: Icon(Icons.history),
-            title: Text("Hakuna"),
+            title: Text("Hakuna", overflow: TextOverflow.fade,),
             onTap: (){},
           ),
 

@@ -22,18 +22,20 @@ class _AddPaymentMethodPageState extends State<AddPaymentMethodPage> {
   Widget build(BuildContext context) {
 
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        padding: EdgeInsets.only(
-          top:12.0
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          padding: EdgeInsets.only(
+            top:12.0
+          ),
+          child: _showPage(),
         ),
-        child: _showPage(),
       ),
     );
   }

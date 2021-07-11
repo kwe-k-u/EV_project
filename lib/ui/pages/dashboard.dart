@@ -28,18 +28,20 @@ class _DashboardState extends State<Dashboard> {
         .of(context)
         .size;
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   heroTag: "",
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        padding: EdgeInsets.only(top: size.height * 0.05),
-        child: RequestSheet(
-          body:_Body(),
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   heroTag: "",
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          padding: EdgeInsets.only(top: size.height * 0.05),
+          child: RequestSheet(
+            body:_Body(),
+          ),
         ),
       ),
     );

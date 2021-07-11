@@ -99,7 +99,9 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
               final isExpanded = state.isExpanded;
 
               return CustomRoundedButton(
-                child: Text(isExpanded ? "Cancel Request" : "Request Ride", style: TextStyle(color: Colors.white),),
+                child: Text(isExpanded ? "Cancel Request" : "Request Ride",
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(color: Colors.white),),
                 color: isExpanded ? Colors.red : resources.secondaryColor,
                 onPressed: !isExpanded
                     ? () => controller.scrollTo(state.maxScrollExtent)
@@ -144,7 +146,7 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Create a trip',
+              'Create a trip', overflow: TextOverflow.fade,
               style: textStyle.copyWith(
                 fontSize: 22,
               ),
@@ -189,7 +191,7 @@ class _CreateRequestSheetState extends State<CreateRequestSheet> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Where would you like to go?',
+            'Where would you like to go?', overflow: TextOverflow.fade,
             style: textStyle.copyWith(
               color: Colors.white,
               fontSize: 16,

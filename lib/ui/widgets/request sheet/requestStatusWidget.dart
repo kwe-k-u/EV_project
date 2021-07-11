@@ -92,8 +92,8 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
           width: MediaQuery.of(context).size.width * 0.12,
           height: MediaQuery.of(context).size.width * 0.12,
         ),
-        title: Text("Your ride is arriving"),
-        subtitle: Text("10 minutes away"),
+        title: Text("Your ride is arriving", overflow: TextOverflow.fade,),
+        subtitle: Text("10 minutes away", overflow: TextOverflow.fade,),
         trailing: SizedBox(
           width: MediaQuery.of(context).size.width *0.1,
           child: Row(
@@ -103,7 +103,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
                 color: Colors.red,
                 size: 16.0,
               ),
-              Text("62")
+              Text("62", overflow: TextOverflow.fade,)
             ],
           ),
         ),
@@ -125,6 +125,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
           Align(
               alignment: Alignment.centerLeft,
               child: Text("Trip details",
+                  overflow: TextOverflow.fade,
                   style: TextStyle(color: Colors.grey)
               )
           ),
@@ -139,7 +140,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
                 ),
                 Flexible(
                   flex: 4,
-                  child: Text("Pick up location"),
+                  child: Text("Pick up location", overflow: TextOverflow.fade,),
                 ),
 
 
@@ -149,7 +150,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
                 ),
                 Flexible(
                   flex: 4,
-                  child: Text("Destination location"),
+                  child: Text("Destination location", overflow: TextOverflow.fade,),
                 ),
               ],
             ),
@@ -164,13 +165,18 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
                 width: size.width * 0.3,
                 child: Column(
                   children: [
-                    Text("Estimated cost", style: TextStyle(color: Colors.grey),),
+                    Text("Estimated cost",
+                      style: TextStyle(
+                          color: Colors.grey),
+                      overflow: TextOverflow.fade,
+                    ),
                     Text("8.45",
+                      overflow: TextOverflow.fade,
                       style: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 20.0
                       ),
                     ),
-                    Text("GHC")
+                    Text("GHC", overflow: TextOverflow.fade,)
                   ],
                 ),
               ),
@@ -179,14 +185,16 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
                 child: Column(
                   children: [
                     Text("Estimated duration",
-                        style: TextStyle(color: Colors.grey)
+                        style: TextStyle(color: Colors.grey),
+                      overflow: TextOverflow.fade,
                     ),
                     Text("15",
+                      overflow: TextOverflow.fade,
                         style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20.0
                     ),
               ),
-                    Text("minutes")
+                    Text("minutes", overflow: TextOverflow.fade,)
                   ],
                 ),
               ),
@@ -205,6 +213,7 @@ class _RequestStatusWidgetState extends State<RequestStatusWidget> {
           CustomRoundedButton(
             width: MediaQuery.of(context).size.width * 0.6,
               child: Text("CANCEL RIDE",
+                overflow: TextOverflow.fade,
                 style: TextStyle(
                     color: Colors.white
                 ),

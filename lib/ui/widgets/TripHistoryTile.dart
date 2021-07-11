@@ -44,9 +44,9 @@ class TripHistoryTile extends StatelessWidget {
         ),
         title: Padding(
           padding: const EdgeInsets.only(bottom:12.0),
-          child: Text(destination),
+          child: Text(destination, overflow: TextOverflow.fade,),
         ),
-        subtitle: Text(pickup),
+        subtitle: Text(pickup, overflow: TextOverflow.fade,),
         trailing: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -68,6 +68,7 @@ class TripHistoryTile extends StatelessWidget {
             rating(stars, size),
             Text(
               date,
+              overflow: TextOverflow.fade,
               style: TextStyle(fontSize: 12.0),
             )
           ],

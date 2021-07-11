@@ -21,101 +21,103 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
 
-            Spacer(flex: 9,),
-            CustomRoundedButton(
-                child: Row(
-                  children: [
-                    Spacer(flex: 3,),
-                    Icon(Icons.email, color: Colors.white,),
-                    Spacer(flex: 1,),
-                    Text("Sign in with Email", style: TextStyle(color: Colors.white),),
-                    Spacer(flex: 5,),
-                  ],
-                ),
-                color: resources.secondaryColor,
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context)=> EmailSignInPage())
-                  );
-                }
-            ),
-
-
-            Spacer(flex: 1,),
-            CustomRoundedButton(
-                child: Row(
-                  children: [
-                    Spacer(flex: 3,),
-                    Icon(Ionicons.logo_google, color: Colors.white,),
-                    Spacer(flex: 1,),
-                    Text("Sign in with Google", style: TextStyle(color: Colors.white),),
-                    Spacer(flex: 5,),
-                  ],
-                ),
-                color: resources.secondaryColor,
-                onPressed: ()async {
-                  User? _user = await signInWithGoogle();
-                  if (_user != null) {
-                    Map<String, dynamic>? data = await getUserProfile(
-                        _user.uid);
-                    RideUser rideUser = RideUser.fromMapAndUser(_user, data);
-                    //todo better implementation?
-                    context.read<RideUser>().reassign(rideUser);
-
-
-                    if (data != null) { //if the user is an existing user
-                      //todo remove if condition when cloud trigger for new user is added
-                      //syncing additional data;
-                      // if (data.containsKey("profileUrl"))
-                      //   rideUser.profileImageUrl = data["profileUrl"];
-                      // rideUser.paymentMethods = data["paymentMethods"] ?? [];
-                      // rideUser.currentPaymentMethodIndex = data["currentPaymentMethodIndex"];
-                      
-                      if (!data.containsKey("institution"))
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.orange,
-                              content: Text("Kindly add an institution to your profile"),
-                            )
-                        );
-                    }
-                    AppResources.openPage(
-                        context, Dashboard());
+              Spacer(flex: 9,),
+              CustomRoundedButton(
+                  child: Row(
+                    children: [
+                      Spacer(flex: 3,),
+                      Icon(Icons.email, color: Colors.white,),
+                      Spacer(flex: 1,),
+                      Text("Sign in with Email", style: TextStyle(color: Colors.white), overflow: TextOverflow.fade,),
+                      Spacer(flex: 5,),
+                    ],
+                  ),
+                  color: resources.secondaryColor,
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=> EmailSignInPage())
+                    );
                   }
-                }
-            ),
-
-            Spacer(flex: 1,),
+              ),
 
 
+              Spacer(flex: 1,),
+              CustomRoundedButton(
+                  child: Row(
+                    children: [
+                      Spacer(flex: 3,),
+                      Icon(Ionicons.logo_google, color: Colors.white,),
+                      Spacer(flex: 1,),
+                      Text("Sign in with Google", style: TextStyle(color: Colors.white), overflow: TextOverflow.fade,),
+                      Spacer(flex: 5,),
+                    ],
+                  ),
+                  color: resources.secondaryColor,
+                  onPressed: ()async {
+                    User? _user = await signInWithGoogle();
+                    if (_user != null) {
+                      Map<String, dynamic>? data = await getUserProfile(
+                          _user.uid);
+                      RideUser rideUser = RideUser.fromMapAndUser(_user, data);
+                      //todo better implementation?
+                      context.read<RideUser>().reassign(rideUser);
 
-            TextButtonRow(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=> EmailSignUpPage()
-                  ));
-                },
-                buttonText: "Sign Up",
-                text: "Don't have an account?"
-            ),
 
-            Spacer(flex: 9,),
-          ],
+                      if (data != null) { //if the user is an existing user
+                        //todo remove if condition when cloud trigger for new user is added
+                        //syncing additional data;
+                        // if (data.containsKey("profileUrl"))
+                        //   rideUser.profileImageUrl = data["profileUrl"];
+                        // rideUser.paymentMethods = data["paymentMethods"] ?? [];
+                        // rideUser.currentPaymentMethodIndex = data["currentPaymentMethodIndex"];
+                        
+                        if (!data.containsKey("institution"))
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.orange,
+                                content: Text("Kindly add an institution to your profile", overflow: TextOverflow.fade,),
+                              )
+                          );
+                      }
+                      AppResources.openPage(
+                          context, Dashboard());
+                    }
+                  }
+              ),
+
+              Spacer(flex: 1,),
+
+
+
+              TextButtonRow(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=> EmailSignUpPage()
+                    ));
+                  },
+                  buttonText: "Sign Up",
+                  text: "Don't have an account?"
+              ),
+
+              Spacer(flex: 9,),
+            ],
+          ),
         ),
       ),
     );

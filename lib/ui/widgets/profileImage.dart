@@ -41,7 +41,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
               return Column(
               children: [
                 Icon(Icons.error_outline),
-                Text("Could not load image")
+                Text("Could not load image", overflow: TextOverflow.fade,)
               ],
             );
             },

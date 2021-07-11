@@ -34,121 +34,123 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
     Size size = MediaQuery.of(context).size;
 
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          width: size.width,
-          height: size.height,
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            width: size.width,
+            height: size.height,
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
 
 
 
-            Spacer(flex: 9,),
+              Spacer(flex: 9,),
 
-            CircleAvatar(
-              // foregroundColor: resources.primaryColor,
-              minRadius: 30,
+              CircleAvatar(
+                // foregroundColor: resources.primaryColor,
+                minRadius: 30,
 
-              child: Icon(Ionicons.logo_github, size: 50,),
-            ),
-
-
-            Spacer(flex: 1,),
-            CustomTextField(
-              controller: email,
-              width: size.width * 0.8,
-              height: size.height * 0.08,
-              hintText: "Email",
-              keyboardType: TextInputType.emailAddress,
-              icon: Icons.email,
-
-            ),
+                child: Icon(Ionicons.logo_github, size: 50,),
+              ),
 
 
-            Spacer(flex: 1,),
-            CustomTextField(
-              controller: password,
-              width: size.width * 0.8,
-              height: size.height * 0.08,
-              hintText: "Password",
-              obscureText: true,
-              icon: Icons.lock_outline
-            ),
-
-            Spacer(flex: 1,),
-            CustomTextField(
-              controller: confirmPassword,
-              obscureText: true,
+              Spacer(flex: 1,),
+              CustomTextField(
+                controller: email,
                 width: size.width * 0.8,
                 height: size.height * 0.08,
-                hintText: "Confirm Password",
+                hintText: "Email",
+                keyboardType: TextInputType.emailAddress,
+                icon: Icons.email,
+
+              ),
+
+
+              Spacer(flex: 1,),
+              CustomTextField(
+                controller: password,
+                width: size.width * 0.8,
+                height: size.height * 0.08,
+                hintText: "Password",
+                obscureText: true,
                 icon: Icons.lock_outline
-            ),
+              ),
 
-            Spacer(flex: 1,),
+              Spacer(flex: 1,),
+              CustomTextField(
+                controller: confirmPassword,
+                obscureText: true,
+                  width: size.width * 0.8,
+                  height: size.height * 0.08,
+                  hintText: "Confirm Password",
+                  icon: Icons.lock_outline
+              ),
 
-            CustomDropDown(
-              label: "Institution",
-              width: size.width * 0.8,
-              height: size.height * 0.13,
-              onChanged: (value){
-                institution = value;//todo replace with controller?
-              },
-              items: [
-                "Please Select",
-                "Ashesi University",
-                "",
-                ""
-              ],
-            ),
+              Spacer(flex: 1,),
 
-            Spacer(flex: 2,),
-
-            CustomRoundedButton(
-                child: Text("Create Account", style: TextStyle(color:Colors.white)),
-                color: resources.secondaryColor,
-                onPressed: () async{
-
-                  User? user = await signUpWithEmail(email.text, password.text, institution);
-
-                  if (user == null)
-                    print("No user");
-                  else {
-                    Map<String, dynamic>? map = await getUserProfile(user.uid);
-                    RideUser rideUser = RideUser.fromMapAndUser(user, map);
-                    context.read<RideUser>().reassign(rideUser);
-
-                    print("user info ${user.toString()}");
-                    if (await resources.showIntroPage())
-                      AppResources.openPage(context, OnBoardingPage());
-                    else
-                      AppResources.openPage(context, Dashboard());
-                  }
+              CustomDropDown(
+                label: "Institution",
+                width: size.width * 0.8,
+                height: size.height * 0.13,
+                onChanged: (value){
+                  institution = value;//todo replace with controller?
                 },
-            ),
+                items: [
+                  "Please Select",
+                  "Ashesi University",
+                  "",
+                  ""
+                ],
+              ),
 
-            TextButtonRow(
-              text: "Already have an account?",
-              buttonText: "Sign In",
-              onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context)=> EmailSignInPage())
-                );
-              }
-            ),
-            Spacer(flex: 9,),
-          ],
-        ),
+              Spacer(flex: 2,),
+
+              CustomRoundedButton(
+                  child: Text("Create Account", style: TextStyle(color:Colors.white), overflow: TextOverflow.fade,),
+                  color: resources.secondaryColor,
+                  onPressed: () async{
+
+                    User? user = await signUpWithEmail(email.text, password.text, institution);
+
+                    if (user == null)
+                      print("No user");
+                    else {
+                      Map<String, dynamic>? map = await getUserProfile(user.uid);
+                      RideUser rideUser = RideUser.fromMapAndUser(user, map);
+                      context.read<RideUser>().reassign(rideUser);
+
+                      print("user info ${user.toString()}");
+                      if (await resources.showIntroPage())
+                        AppResources.openPage(context, OnBoardingPage());
+                      else
+                        AppResources.openPage(context, Dashboard());
+                    }
+                  },
+              ),
+
+              TextButtonRow(
+                text: "Already have an account?",
+                buttonText: "Sign In",
+                onPressed: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context)=> EmailSignInPage())
+                  );
+                }
+              ),
+              Spacer(flex: 9,),
+            ],
+          ),
+          ),
         ),
       ),
     );

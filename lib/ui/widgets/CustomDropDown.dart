@@ -34,7 +34,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       child: Column(
         children: [
           widget.label != null ?
-          Text(widget.label!)
+          Text(widget.label!, overflow: TextOverflow.fade,)
               :Container(width: 0, height: 0,),
 
 

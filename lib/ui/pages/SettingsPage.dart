@@ -26,128 +26,135 @@ class _SettingsPageState extends State<SettingsPage> {
     RideUser user = context.read<RideUser>();
 
 
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   heroTag: "feedback",
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: (){
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        padding: EdgeInsets.only(top: 8.0),
-        child: Column(
-          children: [
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   heroTag: "feedback",
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: (){
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: Column(
+            children: [
 
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: IconButton(
-                  icon: Icon(Icons.chevron_left,
-                    size: 35,),
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: IconButton(
+                    icon: Icon(Icons.chevron_left,
+                      size: 35,),
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: size.width,
-              height: size.height * 0.2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ProfileImageWidget(
-                    url: user.profileImageUrl,
-                    width: size.width * 0.2,
-                    height: size.width * 0.2,
-                  ),
+              SizedBox(
+                width: size.width,
+                height: size.height * 0.2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ProfileImageWidget(
+                      url: user.profileImageUrl,
+                      width: size.width * 0.2,
+                      height: size.width * 0.2,
+                    ),
 
-                  Row(
-                    children: [
-                      Spacer(flex: 3,),
-                      Column(
-                          children: [
+                    Row(
+                      children: [
+                        Spacer(flex: 3,),
+                        Column(
+                            children: [
 
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 4.0, top: 12.0),
-                              child: Text(user.username),
-                            ),
-                            Text(user.institution)
-                          ]
-                      ),
-                      FloatingActionButton(
-                        elevation: 0,
-                        mini: true,
-                        backgroundColor: Colors.indigoAccent,
-                        child: Icon(Icons.edit, size: 20,color: Colors.white,),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 4.0, top: 12.0),
+                                child: Text(user.username, overflow: TextOverflow.fade,),
+                              ),
+                              Text(user.institution, overflow: TextOverflow.fade,)
+                            ]
+                        ),
+                        FloatingActionButton(
+                          elevation: 0,
+                          mini: true,
+                          backgroundColor: Colors.indigoAccent,
+                          child: Icon(Icons.edit, size: 20,color: Colors.white,),
 
-                        onPressed: () {
-                          AppResources.openPageWithAnimation(context, EditProfilePage());
-                        },
-                      ),
+                          onPressed: () {
+                            AppResources.openPageWithAnimation(context, EditProfilePage());
+                          },
+                        ),
 
-                      Spacer(flex: 2,),
-                    ],
-                  )
-                ],
+                        Spacer(flex: 2,),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            ListTile(
-              shape: Border.all(width: 0.5, color: Colors.grey),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=> TripHistoryPage()
-                )
-                );
-              },
-              title: Text("Trip History"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              shape: Border.all(width: 0.5, color: Colors.grey),
-              onTap: (){
-                AppResources.openPage(context, PaymentMethodsPage());
-                // resources.openPage(context, PaymentMethodsPage());
-              },
-              title: Text("Payment Methods"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              shape: Border.all(width: 0.5, color: Colors.grey),
-              title: Text("Help"),
-              trailing: Icon(Icons.chevron_right),
-              onTap: (){},
-            ),
-            ListTile(
-              shape: Border.all(width: 0.5, color: Colors.grey),
-              onTap: (){
-                AppResources.openPage(context, AboutPage());
-              },
-              title: Text("About"),
-              trailing: Icon(Icons.chevron_right),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomRoundedButton(
-                borderRadius: 8.0,
-                width: MediaQuery.of(context).size.width * 0.4,
-                onPressed: (){
-                  Navigator.popUntil(context, (route) => route.isFirst);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(
-                          builder: (context)=> Homepage()
-                      )
+              ListTile(
+                shape: Border.all(width: 0.5, color: Colors.grey),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=> TripHistoryPage()
+                  )
                   );
                 },
-                child: Text("LOG OUT", style: TextStyle(color: Colors.white),),
-                color: resources.secondaryColor,
+                title: Text("Trip History", overflow: TextOverflow.fade,),
+                trailing: Icon(Icons.chevron_right),
               ),
-            )
-          ],
+              ListTile(
+                shape: Border.all(width: 0.5, color: Colors.grey),
+                onTap: (){
+                  AppResources.openPage(context, PaymentMethodsPage());
+                  // resources.openPage(context, PaymentMethodsPage());
+                },
+                title: Text("Payment Methods", overflow: TextOverflow.fade,),
+                trailing: Icon(Icons.chevron_right),
+              ),
+              ListTile(
+                shape: Border.all(width: 0.5, color: Colors.grey),
+                title: Text("Help", overflow: TextOverflow.fade,),
+                trailing: Icon(Icons.chevron_right),
+                onTap: (){},
+              ),
+              ListTile(
+                shape: Border.all(width: 0.5, color: Colors.grey),
+                onTap: (){
+                  AppResources.openPage(context, AboutPage());
+                },
+                title: Text("About", overflow: TextOverflow.fade,),
+                trailing: Icon(Icons.chevron_right),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomRoundedButton(
+                  borderRadius: 8.0,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  onPressed: (){
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(
+                            builder: (context)=> Homepage()
+                        )
+                    );
+                  },
+                  child: Text("LOG OUT",
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                        color: Colors.white
+                    ),
+                  ),
+                  color: resources.secondaryColor,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

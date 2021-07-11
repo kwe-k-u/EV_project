@@ -21,154 +21,160 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   child: Icon(Icons.app_settings_alt_outlined),
-      //   onPressed: () {
-      //     resources.sendFeedback(context);
-      //   },
-      // ),
-      body: Container(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.chevron_left,
-                    size: 35,
+    return SafeArea(
+      child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.app_settings_alt_outlined),
+        //   onPressed: () {
+        //     resources.sendFeedback(context);
+        //   },
+        // ),
+        body: Container(
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
                 ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1, color: resources.primaryColor),
-                    top: BorderSide(width: 0.5, color: resources.primaryColor),
-                  )),
-              padding: const EdgeInsets.all(8),
-              child: Center(
-                child: Text("Payment Methods",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1, color: resources.primaryColor),
+                      top: BorderSide(width: 0.5, color: resources.primaryColor),
+                    )),
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: Text("Payment Methods",
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
               ),
-            ),
-            ListTile(
-              onTap: () {
-                setState(() {
+              ListTile(
+                onTap: () {
+                  setState(() {
 
-                  _selected = [false, false, false];
-                  _selected[0] = true;
-                });
-              },
-              title: Text("Cash"),
-              leading:
-              Icon(Ionicons.cash_outline, color: resources.primaryColor),
-              trailing: _selected[0] ?Icon(Icons.check_circle, color: Colors.green): null,
-            ),
-            ListTile(
-              onTap: () {
-                setState(() {
-
-                  _selected = [false, false, false];
-                  _selected[1] = true;
-                });
-              },
-              title: Text("Mobile money"),
-              subtitle: Text("+233******48"),
-              leading:
-              Icon(Ionicons.phone_portrait, color: resources.primaryColor),
-              onLongPress: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text("Are you sure?"),
-                      content: Text("Remove this payment option"),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("No")),
-                        TextButton(onPressed: () {}, child: Text("Yes")),
-                      ],
-                    ));
-              },
-              trailing: _selected[1] ?Icon(Icons.check_circle, color: Colors.green): null,
-            ),
-            ListTile(
-              onTap: () {
-                setState(() {
-
-                  _selected = [false, false, false];
-                  _selected[2] = true;
-                });
-              },
-              title: Text("Visa Card"),
-              subtitle: Text("9904 *******05"),
-              leading:
-              Icon(Ionicons.card_outline, color: resources.primaryColor),
-
-              onLongPress: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text("Are you sure?"),
-                      content: Text("Remove this payment option"),
-                      actions: [
-                        TextButton(onPressed: () {
-                          Navigator.pop(context);
-                        }, child: Text("No")),
-                        TextButton(onPressed: () {}, child: Text("Yes")),
-                      ],
-                    ));
-              },
-              trailing: _selected[2] ?Icon(Icons.check_circle, color: Colors.green): null,
-            ),
-
-
-
-            ListTile(
-              onTap: () {
-                showGeneralDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    barrierLabel: 'Select a new payment Method',
-                    barrierColor: Colors.grey.withOpacity(0.5),
-                    pageBuilder: (context, anim, anim2) => Dialog(
-                      child: PaymentOptionsPopup(),
-                    ));
-              },
-              title: Text("Add payment method"),
-              leading: Icon(Icons.add, color: resources.primaryColor),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1, color: resources.primaryColor),
-                    top: BorderSide(width: 0.5, color: resources.primaryColor),
-                  )),
-              padding: const EdgeInsets.all(8),
-              child: Center(
-                child: Text("Promotions",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    _selected = [false, false, false];
+                    _selected[0] = true;
+                  });
+                },
+                title: Text("Cash", overflow: TextOverflow.fade,),
+                leading:
+                Icon(Ionicons.cash_outline, color: resources.primaryColor),
+                trailing: _selected[0] ?Icon(Icons.check_circle, color: Colors.green): null,
               ),
-            ),
-            ListTile(
-              title: Text("Enter promo code"),
-              leading: Icon(Ionicons.megaphone, color: resources.primaryColor),
-              onTap: () {
-                AppResources.openPage(context, AddPromoCodePagePage());
-              },
-            ),
-          ],
+              ListTile(
+                onTap: () {
+                  setState(() {
+
+                    _selected = [false, false, false];
+                    _selected[1] = true;
+                  });
+                },
+                title: Text("Mobile money", overflow: TextOverflow.fade,),
+                subtitle: Text("+233******48", overflow: TextOverflow.fade,),
+                leading:
+                Icon(Ionicons.phone_portrait, color: resources.primaryColor),
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Are you sure?", overflow: TextOverflow.fade,),
+                        content: Text("Remove this payment option", overflow: TextOverflow.fade,),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("No", overflow: TextOverflow.fade,)
+                          ),
+                          TextButton(onPressed: () {}, child: Text("Yes", overflow: TextOverflow.fade,)
+                          ),
+                        ],
+                      ));
+                },
+                trailing: _selected[1] ?Icon(Icons.check_circle, color: Colors.green): null,
+              ),
+              ListTile(
+                onTap: () {
+                  setState(() {
+
+                    _selected = [false, false, false];
+                    _selected[2] = true;
+                  });
+                },
+                title: Text("Visa Card", overflow: TextOverflow.fade,),
+                subtitle: Text("9904 *******05", overflow: TextOverflow.fade,),
+                leading:
+                Icon(Ionicons.card_outline, color: resources.primaryColor),
+
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Are you sure?", overflow: TextOverflow.fade,),
+                        content: Text("Remove this payment option", overflow: TextOverflow.fade,),
+                        actions: [
+                          TextButton(onPressed: () {
+                            Navigator.pop(context);
+                          }, child: Text("No", overflow: TextOverflow.fade,)),
+                          TextButton(onPressed: () {}, child: Text("Yes", overflow: TextOverflow.fade,)),
+                        ],
+                      ));
+                },
+                trailing: _selected[2] ?Icon(Icons.check_circle, color: Colors.green): null,
+              ),
+
+
+
+              ListTile(
+                onTap: () {
+                  showGeneralDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      barrierLabel: 'Select a new payment Method',
+                      barrierColor: Colors.grey.withOpacity(0.5),
+                      pageBuilder: (context, anim, anim2) => Dialog(
+                        child: PaymentOptionsPopup(),
+                      ));
+                },
+                title: Text("Add payment method", overflow: TextOverflow.fade,),
+                leading: Icon(Icons.add, color: resources.primaryColor),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1, color: resources.primaryColor),
+                      top: BorderSide(width: 0.5, color: resources.primaryColor),
+                    )),
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: Text("Promotions",
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ),
+              ListTile(
+                title: Text("Enter promo code", overflow: TextOverflow.fade,),
+                leading: Icon(Ionicons.megaphone, color: resources.primaryColor),
+                onTap: () {
+                  AppResources.openPage(context, AddPromoCodePagePage());
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
