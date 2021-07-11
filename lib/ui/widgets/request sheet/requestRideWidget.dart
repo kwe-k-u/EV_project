@@ -1,6 +1,5 @@
 import 'package:ev_project/ui/widgets/LocationTextField.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
-import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/controllers/LocationController.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
@@ -18,7 +17,8 @@ class RequestRideWidget extends StatefulWidget {
 class _RequestRideWidgetState extends State<RequestRideWidget> {
   final AppResources resources = AppResources();
   late AppState appState;
-  TextEditingController destination = new TextEditingController();
+
+
 
   @override
   void initState() {

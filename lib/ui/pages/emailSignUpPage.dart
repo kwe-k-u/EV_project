@@ -1,4 +1,3 @@
-import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:ev_project/ui/pages/dashboard.dart';
 import 'package:ev_project/ui/pages/emailSignInPage.dart';
 import 'package:ev_project/ui/pages/onBoardingPage.dart';

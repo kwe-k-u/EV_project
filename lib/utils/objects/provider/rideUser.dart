@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RideUser with ChangeNotifier{
+  late User _user;
   late String _username;
   late String _email;
   late String _id;
@@ -21,10 +22,10 @@ class RideUser with ChangeNotifier{
     dynamic data(String key){
       if (map == null)
         return null;
-      return map["key"];
+      return map[key];
     }
 
-
+    this._user = user;
     this._email = user.email!;
     this._phoneNumber = user.phoneNumber ?? data("phoneNumber") ?? "";
     this._id = user.uid;
@@ -41,7 +42,7 @@ class RideUser with ChangeNotifier{
   }
 
   void reassign(RideUser user){
-
+    this._user = user.user;
      _username = user.username;
     _email = user.email;
     _id = user.id;
@@ -57,6 +58,7 @@ class RideUser with ChangeNotifier{
   //setter
   set username(String value) {
     _username = value;
+    this._user.updateDisplayName(value);
     notifyListeners();
   }
 
@@ -73,6 +75,7 @@ class RideUser with ChangeNotifier{
 
   set profileImageUrl(String value) {
     _profileImageUrl = value;
+    this._user.updatePhotoURL(value);
     notifyListeners();
   }
 
@@ -97,6 +100,7 @@ class RideUser with ChangeNotifier{
 
   set email(String value) {
     _email = value;
+    this._user.updateEmail(value);
     notifyListeners();
   }
 
@@ -114,6 +118,7 @@ class RideUser with ChangeNotifier{
   String get institution => _institution ?? "Ashesi University, ER";
   String get phoneNumber => _phoneNumber ?? "";
   String get id => _id;
+  User get user => _user;
   String get email => _email;
 
 

@@ -1,8 +1,6 @@
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
-import 'package:ev_project/utils/objects/paymentMethod.dart';
-import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 

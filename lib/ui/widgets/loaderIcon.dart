@@ -1,7 +1,7 @@
-/**
- * Code for this widget was copied from github (https://github.com/samarthagarwal/FlutterScreens/blob/master/lib/loaders/color_loader_3.dart)
- * Curtesy of @samarthagarwal
- */
+///
+///Code for this widget was copied from github (https://github.com/samarthagarwal/FlutterScreens/blob/master/lib/loaders/color_loader_3.dart)
+///Courtesy of @samarthagarwal
+
 
 import "package:flutter/material.dart";
 import 'dart:math';

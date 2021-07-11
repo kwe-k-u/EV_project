@@ -54,127 +54,132 @@ class _EditProfilePageState extends State<EditProfilePage> {
       //   },
       // ),
       backgroundColor: Colors.transparent,
-      body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(top: 12.0),
-        child: TweenAnimationBuilder<double>(
+      body: Consumer<RideUser>(
+        builder: (context, dy,child){
+          return Container(
+            color: Colors.white,
+            padding: EdgeInsets.only(top: 12.0),
+            child: TweenAnimationBuilder<double>(
 
-          tween: Tween(begin: 0.0, end:1.0),
-          duration: Duration(milliseconds: 2000),
-          child: Container(
-            child: Column(
-              children: [
+              tween: Tween(begin: 0.0, end:1.0),
+              duration: Duration(milliseconds: 2000),
+              child: Container(
+                child: Column(
+                  children: [
 
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: IconButton(
-                      icon: Icon(Icons.chevron_left,
-                        size: 35,),
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: IconButton(
+                          icon: Icon(Icons.chevron_left,
+                            size: 35,),
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
 
-                Align(
-                  alignment: Alignment.center,
-                    child: ProfileImageWidget(
-                          width: size.width * 0.3,
-                          height: size.width * 0.3,
-                      file: file,
-                      url: user.profileImageUrl,
-                    onPressed: ()async{
-                      final picker = ImagePicker();
+                    Align(
+                      alignment: Alignment.center,
+                      child: ProfileImageWidget(
+                        width: size.width * 0.3,
+                        height: size.width * 0.3,
+                        file: file,
+                        url: user.profileImageUrl,
+                        onPressed: ()async{
+                          final picker = ImagePicker();
 
-                      final pickedFile = await picker.getImage(source: ImageSource.gallery);
-                      if (pickedFile != null) {
-                        setState(() {
-                          file = File(pickedFile.path);
-                          //todo upload to cloud storage and get link
-                        });
-                      }
-                    },
-                  ),
-                ),
-                CustomTextField(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    hintText: "Username",
-                    controller: username,
-                    icon: Icons.person
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
-                CustomTextField(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  hintText: "Email",
-                  controller: email,
-                  icon: Icons.email_outlined,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
-                CustomTextField(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  hintText: "Phone Number",
-                  controller: phoneNumber,
-                  icon: Icons.phone,
-                ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
-                CustomDropDown(
-                  label: "Institution",
-                  width: size.width * 0.8,
-                  height: size.height * 0.13,
-                  onChanged: (value){
-                    institution = value;//todo replace with controller?
-                  },
-                  items: [
-                    "Please Select",
-                    "Ashesi University",
-                    "",
-                    ""
+                          final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                          if (pickedFile != null) {
+                            setState(() {
+                              file = File(pickedFile.path);
+                              //todo upload to cloud storage and get link
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    CustomTextField(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        hintText: "Username",
+                        controller: username,
+                        icon: Icons.person
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
+                    CustomTextField(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      hintText: "Email",
+                      controller: email,
+                      icon: Icons.email_outlined,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.02,),
+                    CustomTextField(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      hintText: "Phone Number",
+                      controller: phoneNumber,
+                      icon: Icons.phone,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
+                    CustomDropDown(
+                      label: "Institution",
+                      width: size.width * 0.8,
+                      height: size.height * 0.13,
+                      onChanged: (value){
+                        institution = value;//todo replace with controller?
+                      },
+                      items: [
+                        "Please Select",
+                        "Ashesi University",
+                        "",
+                        ""
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
+                    CustomRoundedButton(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text("Save Changes", style: TextStyle(color: Colors.white),),
+                        color: resources.secondaryColor,
+                        onPressed: () async{
+                          user.phoneNumber = phoneNumber.text;
+                          user.email = email.text;
+                          user.username = username.text;
+                          if (file != null)
+                            await uploadImage(user: user, image: file!);
+                          await updateProfile(user);
+                          Navigator.pop(context);
+                        })
+
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.width * 0.05,),
-                CustomRoundedButton(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: Text("Save Changes", style: TextStyle(color: Colors.white),),
-                    color: resources.secondaryColor,
-                    onPressed: (){
-                      user.phoneNumber = phoneNumber.text;
-                      user.email = email.text;
-                      user.username = username.text;
-                      //todo image update;
-                      updateProfile(user);
-                      Navigator.pop(context);
-                    })
-
-              ],
+              ),
+              builder: (context,value, child){
+                return ShaderMask(
+                  blendMode: BlendMode.modulate,
+                  shaderCallback: (rect){
+                    return RadialGradient(
+                        radius:   value * 5,
+                        stops: [0, 0.5, 0.6, 1],
+                        colors: [
+                          Colors.white,
+                          Colors.white,
+                          // resources.secondaryColor,
+                          // resources.primaryColor,
+                          Colors.transparent,
+                          Colors.transparent,
+                        ],
+                        // center: FractionalOffset(0.95,0.9)
+                        center: Alignment(0.5,-0.5)
+                    )
+                        .createShader(rect);
+                  },
+                  child: child,
+                );
+              },
             ),
-          ),
-          builder: (context,value, child){
-            return ShaderMask(
-              blendMode: BlendMode.modulate,
-                shaderCallback: (rect){
-                  return RadialGradient(
-                      radius:   value * 5,
-                      stops: [0, 0.5, 0.6, 1],
-                      colors: [
-                        Colors.white,
-                        Colors.white,
-                        // resources.secondaryColor,
-                        // resources.primaryColor,
-                        Colors.transparent,
-                        Colors.transparent,
-                      ],
-                      // center: FractionalOffset(0.95,0.9)
-                    center: Alignment(0.5,-0.5)
-                  )
-                      .createShader(rect);
-                },
-              child: child,
-            );
-          },
-        ),
+          );
+        },
       ),
     );
   }

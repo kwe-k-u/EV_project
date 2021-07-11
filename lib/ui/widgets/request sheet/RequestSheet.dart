@@ -1,6 +1,5 @@
 import 'package:ev_project/ui/widgets/request%20sheet/createRequestSheet.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/requestStatusWidget.dart';
-import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

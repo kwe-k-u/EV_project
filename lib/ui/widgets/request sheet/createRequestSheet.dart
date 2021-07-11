@@ -1,8 +1,6 @@
 import 'package:ev_project/ui/widgets/customButton.dart';
-import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/requestRideWidget.dart';
 import 'package:ev_project/utils/appResources.dart';
-import 'package:ev_project/utils/objects/provider/appState.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -11,7 +9,6 @@ import 'package:provider/provider.dart';
 
 class CreateRequestSheet extends StatefulWidget {
   final Widget body;
-  // final BuildContext routeContext;
   CreateRequestSheet({Key? key, required this.body}) : super(key: key);
 
   @override

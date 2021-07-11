@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:ev_project/ui/widgets/loaderIcon.dart';
 import 'package:flutter/material.dart';
 
 

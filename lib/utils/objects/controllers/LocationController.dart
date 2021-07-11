@@ -1,7 +1,6 @@
 
 
 import 'package:ev_project/utils/objects/place_search.dart';
-import 'package:ev_project/utils/objects/rideLocation.dart';
 import 'package:ev_project/utils/services/locationHandler.dart';
 import 'package:flutter/cupertino.dart';
 

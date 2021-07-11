@@ -1,5 +1,4 @@
 import 'package:ev_project/ui/widgets/customButton.dart';
-import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/ui/widgets/profileImage.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
