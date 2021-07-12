@@ -52,6 +52,20 @@ Future<LatLng> getLatLngFromAddress(String place) async{
 
 
 
+Future<LatLng> getMapCenter(GoogleMapController controller) async{
+  LatLng center;
+
+  var visibleRegion = await controller.getVisibleRegion();
+  center = LatLng(
+    (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
+    (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
+  );
+
+  return center;
+}
+
+
+
 // Future<Location> pickLocation(BuildContext context) async{
 //   Location location = await Navigator.push(context, MaterialPageRoute(
 //       builder: (context)=> PickLocationPage()

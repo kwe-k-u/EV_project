@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 void main() {
-  runApp(MyApp());
   runApp(BetterFeedback(
     child: MyApp(),
     theme: FeedbackThemeData(
