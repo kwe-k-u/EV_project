@@ -34,8 +34,8 @@ Future<String?> addPaymentMethod(PaymentMethod method)async{
 }
 
 ///Update the saved data of [user] on firestore
-Future<void> updateProfile(RideUser user) async{//todo update firebase auth email, password etc
-  firestore.doc(ROOT + user.id + PROFILE_PATH).set(user.asMap());//todo include uploadImage here?
+Future<void> updateProfile(RideUser user) async{
+  firestore.doc(ROOT + user.id + PROFILE_PATH).set(user.asMap());
 
 
 }

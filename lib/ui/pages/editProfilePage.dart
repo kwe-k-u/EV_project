@@ -96,7 +96,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             if (pickedFile != null) {
                               setState(() {
                                 file = File(pickedFile.path);
-                                //todo upload to cloud storage and get link
                               });
                             }
                           },

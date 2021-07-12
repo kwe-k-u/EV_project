@@ -1,4 +1,4 @@
-import 'package:ev_project/ui/pages/pamentmethod/addPaymentMethodPage.dart';
+import 'package:ev_project/ui/pages/paymentmethod/addPaymentMethodPage.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';

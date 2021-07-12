@@ -1,5 +1,5 @@
-import 'package:ev_project/ui/pages/pamentmethod/creditCardPaymentMethodPage.dart';
-import 'package:ev_project/ui/pages/pamentmethod/mobileMoneyPaymentMethodPage.dart';
+import 'package:ev_project/ui/pages/paymentmethod/creditCardPaymentMethodPage.dart';
+import 'package:ev_project/ui/pages/paymentmethod/mobileMoneyPaymentMethodPage.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:flutter/material.dart';
 
