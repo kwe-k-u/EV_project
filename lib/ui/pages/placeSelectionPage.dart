@@ -27,7 +27,7 @@ class _PlaceSelectionPageState extends State<PlaceSelectionPage> {
           child: Icon(Icons.add),
           onPressed: (){
             LatLng center = context.read<AppState>().center;
-            print("center $center");
+            Navigator.pop(context, center);
           },
         ),
         body: Container(

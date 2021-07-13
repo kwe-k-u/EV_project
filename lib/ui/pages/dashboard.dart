@@ -30,6 +30,7 @@ class _DashboardState extends State<Dashboard> {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         // floatingActionButton: FloatingActionButton(
         //   heroTag: "",
         //   child: Icon(Icons.app_settings_alt_outlined),
