@@ -1,7 +1,7 @@
 import 'package:ev_project/ui/pages/aboutPage.dart';
 import 'package:ev_project/ui/pages/editProfilePage.dart';
 import 'package:ev_project/ui/pages/homepage.dart';
-import 'package:ev_project/ui/pages/paymentMethods.dart';
+import 'package:ev_project/ui/pages/paymentMethodsPage.dart';
 import 'package:ev_project/ui/pages/tripHistoryPage.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/profileImage.dart';

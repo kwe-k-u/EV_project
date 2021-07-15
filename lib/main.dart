@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 void main() {
-  runApp(MyApp());
   runApp(BetterFeedback(
     child: MyApp(),
     theme: FeedbackThemeData(
@@ -28,7 +27,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   final AppResources resources = AppResources();
 
   @override

@@ -8,7 +8,6 @@ class RideUser with ChangeNotifier{
   late User _user;
   late String _username;
   late String _email;
-  late String _id;
   late String? _phoneNumber;
   late String? _institution;
   late String _profileImageUrl;
@@ -28,7 +27,6 @@ class RideUser with ChangeNotifier{
     this._user = user;
     this._email = user.email!;
     this._phoneNumber = user.phoneNumber ?? data("phoneNumber") ?? "";
-    this._id = user.uid;
     this._profileImageUrl = user.photoURL ?? data("photoUrl") ?? "";
     this._username = user.displayName ?? user.email!;
     this._paymentMethods = data("paymentMethods") ?? [PaymentMethod("Cash", "", PaymentMethodType.cash)];
@@ -45,7 +43,6 @@ class RideUser with ChangeNotifier{
     this._user = user.user;
      _username = user.username;
     _email = user.email;
-    _id = user.id;
      _phoneNumber = user.phoneNumber;
      this._institution = user.institution;
     this._profileImageUrl = user.profileImageUrl;
@@ -92,10 +89,10 @@ class RideUser with ChangeNotifier{
   }
 
 
-  set id(String value) {
-    _id = value;
-    notifyListeners();
-  }
+  // set id(String value) {
+  //   _id = value;
+  //   notifyListeners();
+  // }
 
 
   set email(String value) {
@@ -117,7 +114,7 @@ class RideUser with ChangeNotifier{
   String get profileImageUrl => _profileImageUrl;
   String get institution => _institution ?? "Ashesi University, ER";
   String get phoneNumber => _phoneNumber ?? "";
-  String get id => _id;
+  String get id => user.uid;
   User get user => _user;
   String get email => _email;
 
@@ -127,7 +124,6 @@ class RideUser with ChangeNotifier{
 
   Map<String, dynamic> asMap(){
     return {
-      "id" : id, //todo remove id (redundant)
       "phoneNumber" : phoneNumber,
       "photoUrl" : profileImageUrl,
       // "paymentMethods" : paymentMethods,//todo implement #1

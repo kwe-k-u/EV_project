@@ -52,6 +52,20 @@ Future<LatLng> getLatLngFromAddress(String place) async{
 
 
 
+Future<LatLng> getMapCenter(GoogleMapController controller) async{
+  LatLng center;
+
+  var visibleRegion = await controller.getVisibleRegion();
+  center = LatLng(
+    (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
+    (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
+  );
+
+  return center;
+}
+
+
+
 // Future<Location> pickLocation(BuildContext context) async{
 //   Location location = await Navigator.push(context, MaterialPageRoute(
 //       builder: (context)=> PickLocationPage()
@@ -90,11 +104,14 @@ Future<List<PlaceSearch>> getPlaceSuggestions(String text,{String lang = "en"}) 
       ,
       queryParameters: {
         "input" : text,
-        // 'types' : "(regions)",//keep just in case we change mind about accuracy later on
+        'types' : "(regions)",
+        // 'types' : "address",
         "language" : lang,
-        'key' : ""//todo add key
+        'key' : "AIzaSyBjDx5NTz_2XUYCopBa4-y8Mnf3wdg2FCQ"
       });
+  print(response);
   var json = response.data["predictions"] as List;
+  // print("response data${response.data}");
 
   return json.map((e) => PlaceSearch.fromJson(e)).toList();
 

@@ -1,8 +1,11 @@
 import 'package:ev_project/ui/pages/SettingsPage.dart';
+import 'package:ev_project/ui/widgets/CustomMap.dart';
 import 'package:ev_project/ui/widgets/request%20sheet/RequestSheet.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/provider/rideUser.dart';
+import 'package:ev_project/utils/services/locationHandler.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
@@ -24,12 +27,10 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         // floatingActionButton: FloatingActionButton(
         //   heroTag: "",
         //   child: Icon(Icons.app_settings_alt_outlined),
@@ -38,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
         //   },
         // ),
         body: Container(
-          padding: EdgeInsets.only(top: size.height * 0.05),
+          // padding: EdgeInsets.only(top: size.height * 0.05),
           child: RequestSheet(
             body:_Body(),
           ),
@@ -63,16 +64,15 @@ class _Body extends StatefulWidget {
 }
 
 class __BodyState extends State<_Body> {
+
+  
+  
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Image(
-            width: size.width,
-            height: size.height,
-            fit: BoxFit.fill,
-            image: AssetImage('assets/image.png')),
+        CustomMap(
+        ),
 
         Container(
           margin: EdgeInsets.only(left: 6.0, top: 30.0),

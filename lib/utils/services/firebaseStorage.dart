@@ -12,30 +12,30 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 
 const String ROOT = "users/";
-const String PAYMENT_METHOD_PATH = "/profile/finances";
+const String PAYMENT_METHOD_PATH = "/payment_method";
 const String PROFILE_PATH = "/profile/biodata";
 const String TRIP_HISTORY_PATH = "/trip_history/";
 const String IMAGE_PATH = "/profileImage";
 
 
 
-Future<String?> addPaymentMethod(PaymentMethod method)async{
+Future<String?> addPaymentMethod(RideUser user, PaymentMethod method)async{
   String? id;
 
   if (method.isNew) {
-    DocumentReference ref = await firestore.collection(PAYMENT_METHOD_PATH).add(method.toMap());
+    DocumentReference ref = await firestore.collection(ROOT + user.id + PAYMENT_METHOD_PATH).add(method.toMap());
     id = ref.id;
   }
   else {
-    await firestore.doc(PAYMENT_METHOD_PATH + "/${method.id}").set(
+    await firestore.doc(ROOT + user.id + PAYMENT_METHOD_PATH + "/${method.id}").set(
         method.toMap());
   }
   return id;
 }
 
 ///Update the saved data of [user] on firestore
-Future<void> updateProfile(RideUser user) async{//todo update firebase auth email, password etc
-  firestore.doc(ROOT + user.id + PROFILE_PATH).set(user.asMap());//todo include uploadImage here?
+Future<void> updateProfile(RideUser user) async{
+  firestore.doc(ROOT + user.id + PROFILE_PATH).set(user.asMap());
 
 
 }
@@ -58,4 +58,23 @@ return data;
 
 Future<void> requestRide(RideUser user, RideRequest request) async{
   await firestore.doc(ROOT + user.id + TRIP_HISTORY_PATH + request.id).set(request.asMap());
+}
+
+
+Future<List<PaymentMethod>> getPaymentMethods(RideUser user) async{
+   List<PaymentMethod> data = [];
+
+  var result = (await  firestore.collection(ROOT + user.id + PAYMENT_METHOD_PATH)
+      .get() );
+  result.docs.forEach((element) {
+    print(element.data());
+    try{
+      data.add( PaymentMethod.fromJson(element.data()));
+
+    } catch (e){print(e);}
+  });
+  return data;
+
+
+
 }

@@ -1,10 +1,17 @@
+import 'package:ev_project/ui/pages/placeSelectionPage.dart';
 import 'package:ev_project/ui/widgets/LocationTextField.dart';
 import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/controllers/LocationController.dart';
 import 'package:ev_project/utils/objects/provider/appState.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
+import 'package:ev_project/utils/objects/rideLocation.dart';
+import 'package:ev_project/utils/objects/rideRequest.dart';
+import 'package:ev_project/utils/services/firebaseStorage.dart';
+import 'package:ev_project/utils/services/locationHandler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class RequestRideWidget extends StatefulWidget {
@@ -17,6 +24,8 @@ class RequestRideWidget extends StatefulWidget {
 class _RequestRideWidgetState extends State<RequestRideWidget> {
   final AppResources resources = AppResources();
   late AppState appState;
+  LocationController destinationController = LocationController();
+  LocationController pickupController = LocationController();
 
 
 
@@ -41,35 +50,37 @@ class _RequestRideWidgetState extends State<RequestRideWidget> {
 
           LocationTextField(
               label: "Start location",
-              controller: LocationController(),
+              controller: pickupController,
               icon: Icons.my_location,
               onChanged: (v){},
-              onIconTap: (){}
+              onIconTap: ()async{
+
+                LatLng selected = await Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => PlaceSelectionPage()
+                ));
+                pickupController.latlng = selected;
+
+
+              }
           ),
-          // Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: Text("Enter Pickup location")),
-          // CustomTextField(
-          //   icon: Icons.not_listed_location_outlined,
-          //   width: size.width * 0.7,
-          // ),
 
 
         Padding(padding: EdgeInsets.all(8.0)),
           LocationTextField(
               label: "Destination",
-              controller: LocationController(),
+              controller: destinationController,
               icon: Icons.add,
-              onChanged: (v){},
-              onIconTap: (){}
+              onChanged: (v){
+              },
+              onIconTap: () async{
+
+                LatLng selected = await Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PlaceSelectionPage()
+                ));
+                destinationController.latlng = selected;
+
+              }
           ),
-          // Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: Text("Enter destination")),
-          // CustomTextField(
-          //   hintText: "Destination",
-          //   width: size.width * 0.7,
-          // ),
           Spacer(flex: 1,),
           CustomRoundedButton(
               child: Text("REQUEST RIDE",
@@ -78,7 +89,20 @@ class _RequestRideWidgetState extends State<RequestRideWidget> {
                 overflow: TextOverflow.fade,
               ),
               color: resources.secondaryColor,
-              onPressed: () {
+              onPressed: () async{
+
+                RideRequest request = new RideRequest(
+                    requestDateTime: DateTime.now(),
+                  dropOffLocation: RideLocation(
+                      latLng: destinationController.latLng ?? await getLatLngFromAddress(destinationController.text), name: destinationController.text),
+                  pickupLocation: RideLocation(
+                      latLng: pickupController.latLng ?? await getLatLngFromAddress(pickupController.text), name: pickupController.text),
+
+                );
+
+
+                requestRide(context.read<RideUser>(), request);
+
                 setState(() {
                   appState.requestState = RequestState.Searching_rider;
 
