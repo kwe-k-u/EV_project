@@ -23,7 +23,7 @@ class PaymentMethod{
 
   PaymentMethod.fromJson(Map<String,dynamic> map){
     this.name = map["name"];
-    this.type = parseMethodType(map["type"], type: PaymentMethod);
+    this.type = parseMethodType(map["type"]);
     this.value = map["value"];
 
     // return this;
@@ -34,7 +34,7 @@ class PaymentMethod{
   Map<String, dynamic> toMap(){
     return {
       "name" : this.name,
-      // "type" : parseMethodType(type), //todo implement #1
+      "type" : parseMethodType(type, type: PaymentMethod),
       "value" : value
     };
     

@@ -2,9 +2,11 @@ import 'package:ev_project/ui/widgets/customButton.dart';
 import 'package:ev_project/ui/widgets/customTextField.dart';
 import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/paymentMethod.dart';
+import 'package:ev_project/utils/objects/provider/rideUser.dart';
 import 'package:ev_project/utils/services/firebaseStorage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 
 class MobileMoneyPaymentMethodPage extends StatefulWidget {
   // final PaymentMethod? method;
@@ -17,6 +19,7 @@ class MobileMoneyPaymentMethodPage extends StatefulWidget {
 class _MobileMoneyPaymentMethodPageState extends State<MobileMoneyPaymentMethodPage> {
   AppResources resources = AppResources();
   TextEditingController number = TextEditingController();
+  TextEditingController name = TextEditingController();
   // late PaymentMethod method;
 
 
@@ -61,6 +64,13 @@ class _MobileMoneyPaymentMethodPageState extends State<MobileMoneyPaymentMethodP
               ),
               CustomTextField(
                 width: MediaQuery.of(context).size.width * 0.9,
+                hintText: 'Custom name',
+                controller: name,
+                icon: Ionicons.phone_portrait,
+                keyboardType: TextInputType.text,
+              ),
+              CustomTextField(
+                width: MediaQuery.of(context).size.width * 0.9,
                 hintText: 'Mobile Money Number',
                 controller: number,
                 icon: Ionicons.phone_portrait,
@@ -79,8 +89,8 @@ class _MobileMoneyPaymentMethodPageState extends State<MobileMoneyPaymentMethodP
 
 
 
-                    PaymentMethod method = new PaymentMethod("Mobile Money", number.text, PaymentMethodType.mobile_money);
-                    addPaymentMethod(method).then((value) {
+                    PaymentMethod method = new PaymentMethod(name.text, number.text, PaymentMethodType.mobile_money);
+                    addPaymentMethod(context.read<RideUser>(),method).then((value) {
                       if (value != null)
                         method.id = value;ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -88,7 +98,7 @@ class _MobileMoneyPaymentMethodPageState extends State<MobileMoneyPaymentMethodP
                             content: Text("Successfully added mobile money", overflow: TextOverflow.fade,),
                           )
                       );
-                      Navigator.pop(context, method);//todo receive to change provider
+                      Navigator.pop(context, method);
 
                     }).onError((error, stackTrace) {
                       ScaffoldMessenger.of(context).showSnackBar(

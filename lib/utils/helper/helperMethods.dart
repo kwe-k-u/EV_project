@@ -26,10 +26,7 @@ dynamic parseMethodType(dynamic data, {Type? type}){
   if (type != null)
     return data.toString().split(".").elementAt(1);
 
-  switch(type){
-    case PaymentMethodType:
-      return method(data);
-  }
+      return method(data.toString());
 
 
 }
