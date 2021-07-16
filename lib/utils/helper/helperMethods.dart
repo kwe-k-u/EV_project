@@ -1,6 +1,8 @@
 
 
+import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/objects/paymentMethod.dart';
+import 'package:flutter/material.dart';
 
 ///Parses enums between strings and the enum type.
 ///If parsing from string to enum, [type] must be specified.
@@ -29,4 +31,21 @@ dynamic parseMethodType(dynamic data, {Type? type}){
       return method(data.toString());
 
 
+}
+
+
+
+
+
+///Displays a snackbar with the [message] and [color] passed
+void showSnack({
+  required BuildContext context,
+  required String message,
+  Color? color}){
+  ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color ?? AppResources().primaryColor,
+      )
+  );
 }

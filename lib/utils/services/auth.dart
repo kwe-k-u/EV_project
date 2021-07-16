@@ -1,4 +1,6 @@
+import 'package:ev_project/utils/helper/helperMethods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
@@ -13,7 +15,6 @@ Future<User?> signInWithGoogle() async {
     return null;
   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-
   // Create a new credential
 
   final OAuthCredential googleCredential = GoogleAuthProvider.credential(
@@ -25,10 +26,10 @@ Future<User?> signInWithGoogle() async {
   UserCredential credential =  await firebaseAuth.signInWithCredential(googleCredential);
   User _user = credential.user!;
 
+  final User currentUser = firebaseAuth.currentUser!;
+
   assert(!_user.isAnonymous);
   // assert (await user.getIdToken() != null);
-
-  final User currentUser = firebaseAuth.currentUser!;
   assert(currentUser.uid == _user.uid);
 
   return _user;
@@ -37,10 +38,17 @@ Future<User?> signInWithGoogle() async {
 
 
 
-Future<User?>? signUpWithEmail(String email, String password, String institution) async{
+Future<User?>? signUpWithEmail({
+  required String email,
+  required String password,
+  required String institution,
+  required BuildContext context
+}) async{
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  // try {
+
+
+  try {
 
     UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
@@ -70,16 +78,18 @@ Future<User?>? signUpWithEmail(String email, String password, String institution
     return user;
 
 
-  // } on FirebaseAuthException catch (e) {
-  //   if (e.code == 'weak-password') {
-  //     print('The password provided is too weak.');
-  //   } else if (e.code == 'email-already-in-use') {
-  //     print('The account already exists for that email.');
-  //   }
-  // } catch (e) {
-  //   print(e);
-  // }
-  return null;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      showSnack(context: context, message: "Your password is too weak", color: Colors.orangeAccent);
+      print('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      showSnack(context: context, message: "An account exists with that email", color: Colors.orangeAccent);
+      print('The account already exists for that email.');
+    }
+  } catch (e) {
+    print(e);
+  }
+  // return null;
 }
 //todo when a new user is created, trigger a profile creation process on the cloud
 
@@ -108,10 +118,13 @@ Future<User?>? signUpWithEmail(String email, String password, String institution
 // }
 
 
-Future<User?>? logInWithEmail(String email, String password) async{
+Future<User?>? logInWithEmail({
+  required BuildContext context,
+  required String email,
+  required String password}) async{
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  // try {
+  try {
     UserCredential userCredential = await firebaseAuth
         .signInWithEmailAndPassword(
         email: email,
@@ -139,9 +152,26 @@ Future<User?>? logInWithEmail(String email, String password) async{
     return user;
 
 
-  // }  catch (e) {
-  //   print(e);
-  // }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == "user-not-found") {
+      showSnack(context: context, message: "This email is not registered for this service", color: Colors.orangeAccent);
+      print('Account does not exist.');
+    } else if (e.code == "wrong-password"){
+
+      showSnack(context: context, message: "Wrong password entered", color: Colors.orangeAccent);
+      print('Wrong password');
+    } else if (e.code == "invalid-email"){
+
+      showSnack(context: context, message: "Invalid email: Retype your email", color: Colors.orangeAccent);
+      print('invalid-email');
+  } else if (e.code == "network-request-failed"){
+
+      showSnack(context: context, message: "Not connected to the Internet", color: Colors.orangeAccent);
+      print('Connection timeout');
+    } else {
+      print(e);
+    }
+  }
   return null;
 }
 

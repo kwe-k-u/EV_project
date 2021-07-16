@@ -120,7 +120,7 @@ class _EmailSignUpPageState extends State<EmailSignUpPage> {
                   color: resources.secondaryColor,
                   onPressed: () async{
 
-                    User? user = await signUpWithEmail(email.text, password.text, institution);
+                    User? user = await signUpWithEmail(context: context, email: email.text.trim(), password: password.text.trim(), institution: institution.trim());
 
                     if (user == null)
                       print("No user");

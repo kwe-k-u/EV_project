@@ -110,6 +110,11 @@ class AppResources{
     Navigator.push(context, MaterialPageRoute(builder: (context)=> page));
   }
 
+
+
+
+
+
   Future<bool> showIntroPage() async{
     bool show;
     SharedPreferences preferences = await SharedPreferences.getInstance();

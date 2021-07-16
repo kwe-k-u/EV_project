@@ -30,13 +30,14 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
           borderRadius: BorderRadius.circular(60),
           child: widget.file == null ?
           Image.network(widget.url,
-            // loadingBuilder: (context, widget, chunk){
-            // if (chunk == null) return widget;
-            // return LoaderIcon(
-            //   dotRadius: 6.0,
-            //   radius: 12,
-            // );
-            // },
+            loadingBuilder: (context, widget, chunk){
+            if (chunk == null) return widget;
+            return CircularProgressIndicator(
+              value: chunk.expectedTotalBytes == null
+                  ? null
+                  : chunk.cumulativeBytesLoaded/chunk.expectedTotalBytes!,
+            );
+            },
             errorBuilder: (context,object, stacktrace){
               return Column(
               children: [

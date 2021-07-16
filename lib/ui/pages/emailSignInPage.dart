@@ -89,7 +89,7 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
                 color: resources.secondaryColor,
                 onPressed: () async{
 
-                  User? user = await logInWithEmail(email.text, password.text);
+                  User? user = await logInWithEmail(email:email.text.trim(), password: password.text.trim(), context: context);
                   if (user == null)
                     print("No user");
                   else {
