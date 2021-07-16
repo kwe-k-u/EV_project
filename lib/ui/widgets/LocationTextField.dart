@@ -68,7 +68,7 @@ class _LocationTextFieldState extends State<LocationTextField> {
                     },
                     onChanged: (val){
                       if (val.isNotEmpty){
-                        getPlaceSuggestions(val).then(
+                        getPlaceSuggestions(context: context, text: val).then(
                             (results){
                               setState(() {
                                 placeSuggestion = results;

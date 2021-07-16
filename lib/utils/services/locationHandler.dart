@@ -1,7 +1,9 @@
 
 import 'package:dio/dio.dart';
+import 'package:ev_project/utils/helper/helperMethods.dart';
 import 'package:ev_project/utils/objects/rideLocation.dart';
 import 'package:ev_project/utils/objects/place_search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -33,9 +35,6 @@ Future<String> getAddressFromLatLng(LatLng latLng) async {
     Placemark placemark = (await placemarkFromCoordinates(latLng.latitude, latLng.longitude) ).first;
     return placemark.name ?? "";
 
-    // Address place = (await Geocoder.local.findAddressesFromCoordinates(new Coordinates(latLng.latitude, latLng.longitude))).first;
-
-    return  "place.addressLine";
   } catch (e) {
     return "${e.toString()}";
   }
@@ -96,24 +95,43 @@ Future<LatLng> getMapCenter(GoogleMapController controller) async{
 // }
 
 
-Future<List<PlaceSearch>> getPlaceSuggestions(String text,{String lang = "en"}) async{
+Future<List<PlaceSearch>> getPlaceSuggestions({
+  required BuildContext context,
+  required String text,
+  String lang = "en"}) async{
 
   Dio dio = new Dio();
-  final response = await dio.get(
-      "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
-      ,
-      queryParameters: {
-        "input" : text,
-        'types' : "(regions)",
-        // 'types' : "address",
-        "language" : lang,
-        'key' : "AIzaSyBjDx5NTz_2XUYCopBa4-y8Mnf3wdg2FCQ"
-      });
-  print(response);
-  var json = response.data["predictions"] as List;
-  // print("response data${response.data}");
+  try {
+    final response = await dio.get(
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
+        ,
+        queryParameters: {
+          "input": text,
+          'types': "(regions)",
+          // 'types' : "address",
+          "language": lang,
+          'key': "AIzaSyBjDx5NTz_2XUYCopBa4-y8Mnf3wdg2FCQ"
+        });
+    print(response.statusMessage);
+    var json = response.data["predictions"] as List;
 
-  return json.map((e) => PlaceSearch.fromJson(e)).toList();
+    return json.map((e) => PlaceSearch.fromJson(e)).toList();
+    // print("response data${response.data}");
+  } on DioError catch (e){
+    if (e.type == DioErrorType.connectTimeout || e.type == DioErrorType.receiveTimeout){
+      showSnack(context: context, message: "Unstable Internet Connection");
+    }
+    else if (e.type == DioErrorType.other){
+      showSnack(context: context, message: "Check your internet connection");
+    } else {
+      showSnack(context: context, message: "Error encountered: Try again later");
+    }
+
+
+  }
+
+  return [];
+
 
 }
 

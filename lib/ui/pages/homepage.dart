@@ -70,7 +70,7 @@ class Homepage extends StatelessWidget {
                   ),
                   color: resources.secondaryColor,
                   onPressed: ()async {
-                    User? _user = await signInWithGoogle();
+                    User? _user = await signInWithGoogle(context);
                     if (_user != null) {
                       Map<String, dynamic>? data = await getUserProfile(
                           _user.uid);

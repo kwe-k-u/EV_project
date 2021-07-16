@@ -1,38 +1,56 @@
+import 'package:ev_project/utils/appResources.dart';
 import 'package:ev_project/utils/helper/helperMethods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 
-Future<User?> signInWithGoogle() async {
+Future<User?> signInWithGoogle(BuildContext context) async {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
-
   await googleSignIn.signOut();
-  final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-  if (googleUser == null)
-    return null;
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  try{
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    if (googleUser == null) return null;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
-  // Create a new credential
+    // Create a new credential
 
-  final OAuthCredential googleCredential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
+    final OAuthCredential googleCredential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
 
-  // Once signed in, return the UserCredential
-  UserCredential credential =  await firebaseAuth.signInWithCredential(googleCredential);
-  User _user = credential.user!;
+    // Once signed in, return the UserCredential
+    UserCredential credential =
+        await firebaseAuth.signInWithCredential(googleCredential);
+    User _user = credential.user!;
 
-  final User currentUser = firebaseAuth.currentUser!;
+    final User currentUser = firebaseAuth.currentUser!;
 
-  assert(!_user.isAnonymous);
-  // assert (await user.getIdToken() != null);
-  assert(currentUser.uid == _user.uid);
+    assert(!_user.isAnonymous);
+    // assert (await user.getIdToken() != null);
+    assert(currentUser.uid == _user.uid);
 
-  return _user;
+    return _user;
+  } on PlatformException catch (e){
+    if (e.message == "network_error") {
+      print("message ${e.message}");
+      print("code ${e.code}");
+      print("stacktrace ${e.stacktrace}");
+      print("details ${e.details}");
+      showSnack(
+          context: context,
+          message: "No Internet Connection",
+          color: Colors.orangeAccent);
+    }
+  } catch (e){
+    showSnack(context: context, message: "Authentication Error");
+  }
+  return null;
 }
 
 
@@ -118,6 +136,7 @@ Future<User?>? signUpWithEmail({
 // }
 
 
+///Authenticate user with log in details for account [email] and [password]
 Future<User?>? logInWithEmail({
   required BuildContext context,
   required String email,
